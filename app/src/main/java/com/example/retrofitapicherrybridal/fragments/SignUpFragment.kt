@@ -1,6 +1,7 @@
 package com.example.retrofitapicherrybridal.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.retrofitapicherrybridal.AppConfig
+import com.example.retrofitapicherrybridal.MainApplication
 import com.example.retrofitapicherrybridal.R
+import com.example.retrofitapicherrybridal.activities.MainActivity
 import com.example.retrofitapicherrybridal.client.AuthClient
 import com.example.retrofitapicherrybridal.model.User
 import com.google.gson.Gson
@@ -118,16 +121,14 @@ class SignUpFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                pDialog.hide()
+                pDialog.dismiss()
                 val lObject = response.body()!!
 
                 if(response.isSuccessful&&lObject.get("success").asBoolean) {
                     val token = lObject.get("token").asString
                     val user = Gson().fromJson(lObject.get("user").asJsonObject, User::class.java)
 
-                    val userPref = this@SignUpFragment.context!!.getSharedPreferences("user", Context.MODE_PRIVATE)
-                    val editor = userPref.edit()
-
+                    val editor = MainApplication.userSharedPreferences().edit()
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
@@ -137,6 +138,10 @@ class SignUpFragment : Fragment() {
                     pDialog.setTitleText("Thành công!")
                         .setContentText("Tài khoản của bạn đã được khởi tạo")
                         .show();
+                    pDialog.setConfirmClickListener {
+                        this@SignUpFragment.startActivity(Intent(this@SignUpFragment.context, MainActivity::class.java))
+                        this@SignUpFragment.activity?.finish()
+                    }
 
                 } else {
                     pDialog = SweetAlertDialog(this@SignUpFragment.context, SweetAlertDialog.ERROR_TYPE)

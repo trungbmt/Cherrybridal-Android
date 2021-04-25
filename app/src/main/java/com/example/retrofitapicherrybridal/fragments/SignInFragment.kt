@@ -1,6 +1,7 @@
 package com.example.retrofitapicherrybridal.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +11,9 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.retrofitapicherrybridal.AppConfig
+import com.example.retrofitapicherrybridal.MainApplication
 import com.example.retrofitapicherrybridal.R
+import com.example.retrofitapicherrybridal.activities.MainActivity
 import com.example.retrofitapicherrybridal.client.AuthClient
 import com.example.retrofitapicherrybridal.model.User
 import com.google.gson.Gson
@@ -75,7 +78,7 @@ class SignInFragment : Fragment() {
         loginService.enqueue(object : Callback<JsonObject> {
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                pDialog.hide()
+                pDialog.dismiss()
                 pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)
                 pDialog.setTitleText("Lỗi...")
                     .setContentText(t.localizedMessage)
@@ -83,22 +86,22 @@ class SignInFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                pDialog.hide()
-                val lObject = response.body()!!
+                pDialog.dismiss()
 
+                val lObject = response.body()!!
                 if(response.isSuccessful&&lObject.get("success").asBoolean) {
                     val token = lObject.get("token").asString
                     val user = Gson().fromJson(lObject.get("user").asJsonObject, User::class.java)
 
-                    val userPref = this@SignInFragment.context!!.getSharedPreferences("user", Context.MODE_PRIVATE)
-                    val editor = userPref.edit()
-
+                    val editor = MainApplication.userSharedPreferences().edit()
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
-                    Log.d("tokenn", token.toString())
+
+                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, MainActivity::class.java))
+                    this@SignInFragment.activity?.finish()
                 } else {
                     pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)
                     pDialog.setTitleText("Lỗi...")
