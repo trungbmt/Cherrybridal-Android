@@ -83,6 +83,7 @@ class SignInFragment : Fragment() {
                 pDialog.setTitleText("Lỗi...")
                     .setContentText(t.localizedMessage)
                     .show();
+                Log.d("messageback", t.message.toString())
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
@@ -107,6 +108,7 @@ class SignInFragment : Fragment() {
                     pDialog.setTitleText("Lỗi...")
                         .setContentText(lObject.get("message").asString)
                         .show();
+                    Log.d("messageback", response.body().toString())
                 }
             }
 

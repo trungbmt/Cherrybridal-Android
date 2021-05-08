@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:networkSecurityConfig="@xml/network_security_config"
         tools:replace="android:icon"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,13 +16,19 @@
         android:name=".MainApplication"
         android:theme="@style/Theme.RetrofitAPICherryBridal">
         <activity android:name=".activities.AuthActivity"></activity>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.MainActivity">
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

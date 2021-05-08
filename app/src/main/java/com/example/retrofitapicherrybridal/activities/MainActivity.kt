@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import com.example.retrofitapicherrybridal.AppConfig
 import com.example.retrofitapicherrybridal.MainApplication
 import com.example.retrofitapicherrybridal.R
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     val userPref = MainApplication.userSharedPreferences()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_main)
 
         if(!userPref.getBoolean("isLoggedIn", false)) {
