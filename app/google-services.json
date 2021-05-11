@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "300967677834",
+    "project_id": "cherrybridal-android",
+    "storage_bucket": "cherrybridal-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300967677834:android:e39038975e20544b0cc273",
+        "android_client_info": {
+          "package_name": "com.vku.retrofitapicherrybridal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300967677834-0t5ocio0h4tk498glj8t4pld5jhs7co4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vku.retrofitapicherrybridal",
+            "certificate_hash": "0fa4dd777db7625424e6793ab78bd533d72c880c"
+          }
+        },
+        {
+          "client_id": "300967677834-ugujok0489m56q6l9fqa8bko1tqpcrru.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1a7r5xfRSUYJpyiTnDHJLxmjBafbV0cQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300967677834-ugujok0489m56q6l9fqa8bko1tqpcrru.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

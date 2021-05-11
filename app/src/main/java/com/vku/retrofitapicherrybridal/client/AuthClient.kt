@@ -8,6 +8,9 @@ interface AuthClient {
     @POST(value = "api/login")
     fun login(@Query("username") username: String, @Query("password") password: String) : Call<JsonObject>
 
+    @Headers("Connection: close")
+    @POST(value = "api/socialite-login")
+    fun socialiteLogin(@Query("provider") provider: String, @Query("access_token") access_token: String) : Call<JsonObject>
 
     @POST(value = "api/register")
     fun register(

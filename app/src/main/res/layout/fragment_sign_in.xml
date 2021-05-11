@@ -99,7 +99,7 @@
         >
 
         <com.facebook.login.widget.LoginButton
-            android:id="@+id/login_button"
+            android:id="@+id/fb_loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerInside"
@@ -108,7 +108,7 @@
             android:layout_weight="1"
             />
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
+            android:id="@+id/gg_loginBtn"
             android:layout_weight="1"
             android:layout_gravity="center"
             android:layout_width="match_parent"

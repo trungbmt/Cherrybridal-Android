@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Cherry Bridal</string>
     <string name="facebook_app_id">895700327905265</string> <string name="fb_login_protocol_scheme">fb895700327905265</string>
+    <string name="server_client_id">635341941940-64had4i3c9c79eub7ifspllarmct28mm.apps.googleusercontent.com</string>
 </resources>

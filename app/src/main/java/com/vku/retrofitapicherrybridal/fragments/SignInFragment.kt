@@ -1,30 +1,51 @@
 package com.vku.retrofitapicherrybridal.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.SignInButton
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.activities.MainActivity
 import com.vku.retrofitapicherrybridal.client.AuthClient
 import com.vku.retrofitapicherrybridal.model.User
-import com.google.gson.Gson
-import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.fragment_sign_in.*
 import kotlinx.android.synthetic.main.fragment_sign_in.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class SignInFragment : Fragment() {
     lateinit var rootView : View
+    val RC_SIGN_IN : Int = 0
+    val authClient: AuthClient = AppConfig.retrofit.create(AuthClient::class.java)
+    var callbackManager = CallbackManager.Factory.create()
+    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(MainApplication.applicationContext().getString(R.string.server_client_id))
+        .requestEmail()
+        .build()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +71,24 @@ class SignInFragment : Fragment() {
                 login()
             }
         }
+        rootView.fb_loginBtn.setReadPermissions("email");
+        rootView.fb_loginBtn.setFragment(this);
+        rootView.fb_loginBtn.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
+            override fun onSuccess(loginResult: LoginResult?) {
+                if (loginResult != null) {
+                    socialite_login("facebook", loginResult.accessToken.token)
+                }
+            }
+            override fun onCancel() {Log.d("loginfacebook", "cancel")}
+            override fun onError(exception: FacebookException) {Log.d("loginfacebook", "error: ${exception.message}")}
+        })
+
+        rootView.gg_loginBtn.setSize(SignInButton.SIZE_STANDARD);
+        rootView.gg_loginBtn.setOnClickListener {
+            gg_login();
+        }
+
+
         return rootView
     }
     private fun validate() : Boolean {
@@ -65,6 +104,59 @@ class SignInFragment : Fragment() {
         }
         return true
     }
+    private fun gg_login() {
+        val mGoogleSignInClient = GoogleSignIn.getClient(this@SignInFragment.context as Activity, gso);
+        mGoogleSignInClient.signOut()
+        val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+    }
+    private fun socialite_login(provider: String, access_token: String) {
+        var pDialog = SweetAlertDialog(this.context, SweetAlertDialog.PROGRESS_TYPE)
+        pDialog.setCancelable(false)
+        pDialog.show()
+        val loginService: Call<JsonObject> = authClient.socialiteLogin(provider, access_token)
+        loginService.enqueue(object : Callback<JsonObject> {
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                pDialog.dismiss()
+                pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)
+                pDialog.setTitleText("Lỗi...")
+                    .setContentText(t.localizedMessage)
+                    .show();
+                Log.d("messageback", t.message.toString())
+                t.stackTrace.forEach { e ->
+                    Log.d("messageback", e.toString())
+                }
+
+            }
+
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                pDialog.dismiss()
+
+                val lObject = response.body()!!
+                if(response.isSuccessful&&lObject.get("success").asBoolean) {
+                    val token = lObject.get("token").asString
+                    val user = Gson().fromJson(lObject.get("user").asJsonObject, User::class.java)
+
+                    val editor = MainApplication.userSharedPreferences().edit()
+                    editor.putString("token", token)
+                    editor.putString("username", user.username)
+                    editor.putString("email", user.email)
+                    editor.putBoolean("isLoggedIn", true)
+                    editor.apply()
+
+                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, MainActivity::class.java))
+                    this@SignInFragment.activity?.finish()
+                } else {
+                    pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)
+                    pDialog.setTitleText("Lỗi...")
+                        .setContentText(lObject.get("message").asString)
+                        .show();
+                    Log.d("messageback", response.body().toString())
+                }
+            }
+
+        })
+    }
     private fun login() {
         var pDialog = SweetAlertDialog(this.context, SweetAlertDialog.PROGRESS_TYPE)
         pDialog.setCancelable(false)
@@ -72,7 +164,6 @@ class SignInFragment : Fragment() {
 
         val username = rootView.txtUsername.text.toString()
         val password = rootView.txtPassword.text.toString()
-        val authClient: AuthClient = AppConfig.retrofit.create(AuthClient::class.java)
         val loginService: Call<JsonObject> = authClient.login(username, password)
         loginService.enqueue(object : Callback<JsonObject> {
 
@@ -112,5 +203,34 @@ class SignInFragment : Fragment() {
             }
 
         })
+    }
+    override fun onActivityResult(
+        requestCode: Int,
+        resultCode: Int,
+        data: Intent?
+    ) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        //facebook callback
+        callbackManager.onActivityResult(requestCode, resultCode, data)
+
+        //gooogle callback
+        if (requestCode === RC_SIGN_IN) {
+            Log.d("googleLogin", "onActivityResult")
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+        }
+    }
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account = completedTask.getResult(ApiException::class.java)
+            val token = account?.idToken
+            if(token!=null) {
+                Log.d("googleLogin", "Token :" + token)
+                socialite_login("google", token)
+            }
+        } catch (e: ApiException) {
+            Log.d("googleLogin", "signInResult:failed code=" + e.getStatusCode())
+        }
     }
 }
