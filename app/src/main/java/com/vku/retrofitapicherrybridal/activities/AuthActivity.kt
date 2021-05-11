@@ -1,29 +1,32 @@
-package com.example.retrofitapicherrybridal.activities
+package com.vku.retrofitapicherrybridal.activities
 
 import android.content.Intent
-import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
-import com.example.retrofitapicherrybridal.AppConfig
-import com.example.retrofitapicherrybridal.MainApplication
-import com.example.retrofitapicherrybridal.R
-import com.example.retrofitapicherrybridal.client.AuthClient
-import com.example.retrofitapicherrybridal.fragments.SignInFragment
+import com.vku.retrofitapicherrybridal.AppConfig
+import com.vku.retrofitapicherrybridal.MainApplication
+import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.client.AuthClient
+import com.vku.retrofitapicherrybridal.fragments.SignInFragment
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.prefs.PreferenceChangeListener
 
 class AuthActivity : AppCompatActivity() {
+    val userPref = MainApplication.userSharedPreferences()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_auth)
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction().replace(R.id.frameAuthContainer, SignInFragment()).commit()
+        if(userPref.getBoolean("isLoggedIn", false)) {
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
 
     }
     companion object {

@@ -1,10 +1,10 @@
-package com.example.retrofitapicherrybridal
+package com.vku.retrofitapicherrybridal
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object AppConfig {
-    const val BASE_URL = "http://192.168.1.12/cherrybridal/"
+    const val BASE_URL = "http://192.168.1.3/cherrybridal/"
     private val builder = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

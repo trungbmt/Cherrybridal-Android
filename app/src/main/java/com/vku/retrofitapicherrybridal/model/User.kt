@@ -1,4 +1,4 @@
-package com.example.retrofitapicherrybridal.model
+package com.vku.retrofitapicherrybridal.model
 
 class User{
     var id : Int = 0

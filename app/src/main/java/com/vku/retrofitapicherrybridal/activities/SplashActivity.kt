@@ -1,4 +1,4 @@
-package com.example.retrofitapicherrybridal.activities
+package com.vku.retrofitapicherrybridal.activities
 
 import android.app.ActivityOptions
 import android.content.Intent
@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.R
 
 
 class SplashActivity : AppCompatActivity() {

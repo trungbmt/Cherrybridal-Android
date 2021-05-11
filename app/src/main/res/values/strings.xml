@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cherry Bridal</string>
+    <string name="facebook_app_id">895700327905265</string> <string name="fb_login_protocol_scheme">fb895700327905265</string>
 </resources>

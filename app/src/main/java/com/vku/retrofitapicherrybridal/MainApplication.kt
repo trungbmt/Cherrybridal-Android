@@ -1,4 +1,4 @@
-package com.example.retrofitapicherrybridal
+package com.vku.retrofitapicherrybridal
 
 import android.app.Application
 import android.content.Context

@@ -1,9 +1,10 @@
-package com.example.retrofitapicherrybridal.model
+package com.vku.retrofitapicherrybridal.model
 
 import com.google.gson.annotations.SerializedName
-import retrofit2.http.Field
 
 class Category() {
+    @SerializedName("category_id")
+    var id : Int = 0
 
     @SerializedName("category_name")
     var name : String = ""
@@ -12,9 +13,9 @@ class Category() {
     var desc : String = ""
 
     @SerializedName("category_img")
-    var img_link : String = ""
+    var img : String = ""
 
     override fun toString(): String {
-        return "name: "+name+" | desc: "+desc+" | img_link: "+img_link
+        return "name: "+name+" | desc: "+desc+" | img_link: "+img
     }
 }

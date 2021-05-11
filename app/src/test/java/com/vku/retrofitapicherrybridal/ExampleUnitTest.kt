@@ -1,4 +1,4 @@
-package com.example.retrofitapicherrybridal
+package com.vku.retrofitapicherrybridal
 
 import org.junit.Test
 

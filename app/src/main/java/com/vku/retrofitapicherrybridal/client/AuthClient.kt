@@ -1,4 +1,4 @@
-package com.example.retrofitapicherrybridal.client
+package com.vku.retrofitapicherrybridal.client
 
 import com.google.gson.JsonObject
 import retrofit2.Call
