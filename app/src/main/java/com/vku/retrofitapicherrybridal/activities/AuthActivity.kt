@@ -1,10 +1,15 @@
 package com.vku.retrofitapicherrybridal.activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import com.facebook.login.LoginManager
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
@@ -30,6 +35,18 @@ class AuthActivity : AppCompatActivity() {
 
     }
     companion object {
+        fun logout_fb() {
+            LoginManager.getInstance().logOut()
+        }
+        fun logout_gg(context: Context) {
+
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken(MainApplication.applicationContext().getString(R.string.server_client_id))
+                    .requestEmail()
+                    .build()
+            val mGoogleSignInClient = GoogleSignIn.getClient(context as Activity, gso);
+            mGoogleSignInClient.signOut()
+        }
         fun logout() {
             val userPref = MainApplication.userSharedPreferences()
             var editor = userPref.edit()

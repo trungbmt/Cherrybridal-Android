@@ -26,6 +26,7 @@ import com.google.gson.JsonObject
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.activities.AuthActivity
 import com.vku.retrofitapicherrybridal.activities.MainActivity
 import com.vku.retrofitapicherrybridal.client.AuthClient
 import com.vku.retrofitapicherrybridal.model.User
@@ -76,11 +77,12 @@ class SignInFragment : Fragment() {
         rootView.fb_loginBtn.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) {
                 if (loginResult != null) {
+                    Log.d("LoginAPI", "Facebook login token: "+loginResult.accessToken.token)
                     socialite_login("facebook", loginResult.accessToken.token)
                 }
             }
-            override fun onCancel() {Log.d("loginfacebook", "cancel")}
-            override fun onError(exception: FacebookException) {Log.d("loginfacebook", "error: ${exception.message}")}
+            override fun onCancel() {}
+            override fun onError(exception: FacebookException) {Log.d("LoginAPI", "Facebook login error: ${exception.message}")}
         })
 
         rootView.gg_loginBtn.setSize(SignInButton.SIZE_STANDARD);
@@ -106,7 +108,6 @@ class SignInFragment : Fragment() {
     }
     private fun gg_login() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this@SignInFragment.context as Activity, gso);
-        mGoogleSignInClient.signOut()
         val signInIntent: Intent = mGoogleSignInClient.getSignInIntent()
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -126,6 +127,8 @@ class SignInFragment : Fragment() {
                 t.stackTrace.forEach { e ->
                     Log.d("messageback", e.toString())
                 }
+                AuthActivity.logout_gg(this@SignInFragment.context!!)
+                AuthActivity.logout_fb()
 
             }
 
@@ -152,6 +155,8 @@ class SignInFragment : Fragment() {
                         .setContentText(lObject.get("message").asString)
                         .show();
                     Log.d("messageback", response.body().toString())
+                    AuthActivity.logout_gg(this@SignInFragment.context!!)
+                    AuthActivity.logout_fb()
                 }
             }
 
@@ -216,7 +221,6 @@ class SignInFragment : Fragment() {
 
         //gooogle callback
         if (requestCode === RC_SIGN_IN) {
-            Log.d("googleLogin", "onActivityResult")
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleSignInResult(task)
         }
@@ -226,11 +230,11 @@ class SignInFragment : Fragment() {
             val account = completedTask.getResult(ApiException::class.java)
             val token = account?.idToken
             if(token!=null) {
-                Log.d("googleLogin", "Token :" + token)
+                Log.d("LoginAPI", "Token google :" + token)
                 socialite_login("google", token)
             }
         } catch (e: ApiException) {
-            Log.d("googleLogin", "signInResult:failed code=" + e.getStatusCode())
+            Log.d("LoginAPI", "Login google failed code =" + e.getStatusCode())
         }
     }
 }

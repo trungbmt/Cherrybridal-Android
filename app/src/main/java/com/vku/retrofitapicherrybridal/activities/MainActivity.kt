@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         getCategories()
         btnLogout.setOnClickListener{
             AuthActivity.logout()
+            AuthActivity.logout_fb()
+            AuthActivity.logout_gg(this)
             finish()
         }
 //        loginToken()
