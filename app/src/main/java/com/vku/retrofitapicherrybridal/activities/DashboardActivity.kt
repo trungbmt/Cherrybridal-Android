@@ -2,7 +2,6 @@ package com.vku.retrofitapicherrybridal.activities
 
 import android.os.Bundle
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
@@ -22,8 +21,8 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dashboard)
 
         addFragment(BlogFragment.newInstance())
-        bottomNavigation.show(0, true)
-        bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.blog))
+        bottomNavigation.show(0, false)
+        bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.ic_android_black_24dp))
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.rings))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.cart))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.menu))
