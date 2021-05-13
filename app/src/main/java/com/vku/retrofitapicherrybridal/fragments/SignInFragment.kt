@@ -27,6 +27,7 @@ import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.activities.AuthActivity
+import com.vku.retrofitapicherrybridal.activities.DashboardActivity
 import com.vku.retrofitapicherrybridal.activities.MainActivity
 import com.vku.retrofitapicherrybridal.client.AuthClient
 import com.vku.retrofitapicherrybridal.model.User
@@ -72,7 +73,7 @@ class SignInFragment : Fragment() {
                 login()
             }
         }
-        rootView.fb_loginBtn.setReadPermissions("email");
+        rootView.fb_loginBtn.setReadPermissions("public_profile email");
         rootView.fb_loginBtn.setFragment(this);
         rootView.fb_loginBtn.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
             override fun onSuccess(loginResult: LoginResult?) {
@@ -147,7 +148,7 @@ class SignInFragment : Fragment() {
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
 
-                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, MainActivity::class.java))
+                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, DashboardActivity::class.java))
                     this@SignInFragment.activity?.finish()
                 } else {
                     pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)
@@ -196,7 +197,7 @@ class SignInFragment : Fragment() {
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
 
-                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, MainActivity::class.java))
+                    this@SignInFragment.startActivity(Intent(this@SignInFragment.context, DashboardActivity::class.java))
                     this@SignInFragment.activity?.finish()
                 } else {
                     pDialog = SweetAlertDialog(this@SignInFragment.context, SweetAlertDialog.ERROR_TYPE)

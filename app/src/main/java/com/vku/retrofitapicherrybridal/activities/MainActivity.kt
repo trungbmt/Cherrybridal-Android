@@ -23,6 +23,7 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
+
     private val categoryClient:CategoryClient = AppConfig.retrofit.create(CategoryClient::class.java)
 
     private val categoryService:Call<CategoryAPI> = categoryClient.getCategories()
@@ -61,4 +62,6 @@ class MainActivity : AppCompatActivity() {
 
         })
     }
+
+
 }

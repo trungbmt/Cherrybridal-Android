@@ -7,5 +7,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="app_color">#ff7dd4</color>
+    <color name="app_color">#ff084e</color>
+
+    <color name="selectedIconColor">#ff084e</color>
+    <color name="defaultIconColor">#F6F6F6</color>
+    <color name="countTextColor">#fff</color>
+    <color name="countBackgroundColor">#F45E0B</color>
+    <color name="circleColor">#fff</color>
+    <color name="backgroundBottomColor">#ff084e</color>
+    <color name="shadowColor">#3a3a3a</color>
 </resources>

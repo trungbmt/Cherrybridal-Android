@@ -29,7 +29,7 @@ class AuthActivity : AppCompatActivity() {
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction().replace(R.id.frameAuthContainer, SignInFragment()).commit()
         if(userPref.getBoolean("isLoggedIn", false)) {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, DashboardActivity::class.java))
             finish()
         }
 
@@ -73,7 +73,9 @@ class AuthActivity : AppCompatActivity() {
 
                 })
                 val context = MainApplication.applicationContext()
-                context.startActivity(Intent(context, AuthActivity::class.java))
+                val intent = Intent(context, AuthActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(intent)
             }
         }
     }
