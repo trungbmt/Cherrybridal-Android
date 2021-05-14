@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <androidx.drawerlayout.widget.DrawerLayout
+=======
+<androidx.cardview.widget.CardView
+>>>>>>> 4a947f1783e009dee479b8e6a7171cf59b989ca6
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -35,14 +39,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+<<<<<<< HEAD
         android:layout_alignParentBottom="true"
         app:mbn_countBackgroundColor="@color/countBackgroundColor"
         android:outlineAmbientShadowColor="#FF0000"
+=======
+>>>>>>> 4a947f1783e009dee479b8e6a7171cf59b989ca6
         app:mbn_countTextColor="#000"
         app:mbn_defaultIconColor="#4F000000"
         app:mbn_rippleColor="@color/teal_700"
         app:mbn_selectedIconColor="@color/app_color"
+<<<<<<< HEAD
         app:mbn_shadowColor="#1FE30B0B" />
 
 </androidx.cardview.widget.CardView>
 </androidx.drawerlayout.widget.DrawerLayout>
+=======
+        android:background="@android:color/transparent"
+        app:mbn_shadowColor="#1f212121"/>
+
+</androidx.cardview.widget.CardView>
+>>>>>>> 4a947f1783e009dee479b8e6a7171cf59b989ca6

@@ -39,14 +39,21 @@ class DashboardActivity : AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.rings))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.cart))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.menu))
-
+        var blogFragment : BlogFragment? = null
+        var shopFragment : ShopFragment? = null
         bottomNavigation.setOnClickMenuListener{
             when (it.id){
                 0 -> {
-                    replaceFragment(BlogFragment.newInstance())
+                    if(blogFragment==null) {
+                        blogFragment = BlogFragment()
+                        replaceFragment(blogFragment!!)
+                    } else replaceFragment(blogFragment!!)
                 }
                 1 -> {
-                    replaceFragment(ShopFragment.newInstance())
+                    if(shopFragment==null) {
+                        shopFragment = ShopFragment()
+                        replaceFragment(shopFragment!!)
+                    } else replaceFragment(shopFragment!!)
                 }
                 2 -> {
                     replaceFragment(CartFragment.newInstance())
