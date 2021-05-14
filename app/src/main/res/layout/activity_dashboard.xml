@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.DashboardActivity">
+    tools:context=".activities.DashboardActivity"
+    tools:openDrawer="right"
+    android:id="@+id/dashboard_drawer"
+    android:fitsSystemWindows="true">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/dashboard_cV">
+
+    <com.google.android.material.navigation.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/nav_menu"
+        app:headerLayout="@layout/header_menu"
+        app:menu="@menu/drawer_menu"
+        android:layout_gravity="right"/>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -17,13 +34,15 @@
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:layout_alignParentBottom="true"
-        app:mbn_countBackgroundColor="@color/transparent"
-        android:outlineAmbientShadowColor="@color/transparent"
+        app:mbn_countBackgroundColor="@color/countBackgroundColor"
+        android:outlineAmbientShadowColor="#FF0000"
         app:mbn_countTextColor="#000"
-        app:mbn_defaultIconColor="#90a4ae"
+        app:mbn_defaultIconColor="#4F000000"
         app:mbn_rippleColor="@color/teal_700"
         app:mbn_selectedIconColor="@color/app_color"
-        app:mbn_shadowColor="#1f212121" />
+        app:mbn_shadowColor="#1FE30B0B" />
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>
+</androidx.drawerlayout.widget.DrawerLayout>
