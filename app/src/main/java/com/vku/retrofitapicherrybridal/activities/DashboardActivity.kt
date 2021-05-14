@@ -5,12 +5,16 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.client.CategoryClient
 import com.vku.retrofitapicherrybridal.fragments.BlogFragment
 import com.vku.retrofitapicherrybridal.fragments.CartFragment
 import com.vku.retrofitapicherrybridal.fragments.MenuFragment
 import com.vku.retrofitapicherrybridal.fragments.ShopFragment
+import com.vku.retrofitapicherrybridal.model.CategoryAPI
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import retrofit2.Call
 
 class DashboardActivity : AppCompatActivity() {
 
@@ -18,6 +22,7 @@ class DashboardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_dashboard)
 
         addFragment(BlogFragment.newInstance())
@@ -51,10 +56,10 @@ class DashboardActivity : AppCompatActivity() {
     private fun replaceFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.fragmentContainer,fragment).addToBackStack(Fragment::class.java.simpleName).commit()
-        }
+    }
 
     private fun addFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.add(R.id.fragmentContainer,fragment).addToBackStack(Fragment::class.java.simpleName).commit()
     }
-    }
+}

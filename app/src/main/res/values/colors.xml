@@ -16,4 +16,5 @@
     <color name="circleColor">#fff</color>
     <color name="backgroundBottomColor">#ff084e</color>
     <color name="shadowColor">#3a3a3a</color>
+    <color name="transparent">#80000000</color>
 </resources>
