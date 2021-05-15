@@ -22,6 +22,9 @@ import java.lang.Exception
 
 class BlogFragment : Fragment() {
     lateinit var rootView : View
+    var curPosition = -1
+    lateinit var viewpagerSearch: RecyclerView
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,13 +39,11 @@ class BlogFragment : Fragment() {
         videos.add(Post("chụp cho em cả buổi em chê mình ăn mặc như nhà quê", "https://v9-vn.tiktokcdn.com/679d1c41ad05140b8b03ea1f540e7929/60a03621/video/tos/alisg/tos-alisg-pve-0037/e66db9cc5f9c4aafa1089b48f35d5b2b/?a=1180&br=5240&bt=2620&cd=0%7C0%7C1&ch=0&cr=0&cs=0&cv=1&dr=3&ds=3&er=&l=2021051514585301011504101108366CE7&lr=tiktok&mime_type=video_mp4&net=0&pl=0&qs=0&rc=anc0czVrdXJwNTMzODgzM0ApNDNkODRpPDs3Nzg4MzRkaGdmcHM0aWpwYjRgLS1kLzRzczAuYWNeYGMyYy1eMmNfYjQ6Yw%3D%3D&vl=&vr="))
 
         rootView.viewpager2.adapter = PostAdapter(videos, this.context!!)
-        var curPosition = -1
-        val viewpagerSearch = (rootView.viewpager2.get(0) as RecyclerView)
+        viewpagerSearch = (rootView.viewpager2.get(0) as RecyclerView)
         rootView.viewpager2.orientation = ViewPager2.ORIENTATION_VERTICAL
         rootView.viewpager2.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                Log.d("PageSelected", "$position")
                 (viewpagerSearch.findViewHolderForAdapterPosition(position) as PostAdapter.ViewHolder).selectedView(position)
                 try {
                     (viewpagerSearch.findViewHolderForAdapterPosition(curPosition) as PostAdapter.ViewHolder).unSelected()
@@ -75,7 +76,9 @@ class BlogFragment : Fragment() {
 
         return rootView
     }
-
+    fun pauseMusic() {
+        (viewpagerSearch.findViewHolderForAdapterPosition(curPosition) as PostAdapter.ViewHolder).pauseVideo()
+    }
     companion object {
         @JvmStatic
         fun newInstance() =

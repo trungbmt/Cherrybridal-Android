@@ -1,6 +1,7 @@
 package com.vku.retrofitapicherrybridal.activities
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.WindowManager
 import android.widget.Toast
@@ -38,15 +39,23 @@ class DashboardActivity : AppCompatActivity() {
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.rings))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.cart))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.menu))
+
         var blogFragment : BlogFragment? = null
         var shopFragment : ShopFragment? = null
         bottomNavigation.setOnClickMenuListener{
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+            if(it.id!=0&&currentFragment==blogFragment)
+            {
+                blogFragment?.pauseMusic()
+            }
             when (it.id){
                 0 -> {
-                    if(blogFragment==null) {
-                        blogFragment = BlogFragment()
-                        replaceFragment(blogFragment!!)
-                    } else replaceFragment(blogFragment!!)
+                    if(currentFragment!=blogFragment) {
+                        if(blogFragment==null) {
+                            blogFragment = BlogFragment()
+                            replaceFragment(blogFragment!!)
+                        } else replaceFragment(blogFragment!!)
+                    }
                 }
                 1 -> {
                     if(shopFragment==null) {
@@ -71,11 +80,11 @@ class DashboardActivity : AppCompatActivity() {
 
     private fun replaceFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
-        fragmentTransition.replace(R.id.fragmentContainer,fragment).addToBackStack(Fragment::class.java.simpleName).commit()
+        fragmentTransition.replace(R.id.fragmentContainer,fragment).commit()
     }
 
     private fun addFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
-        fragmentTransition.add(R.id.fragmentContainer,fragment).addToBackStack(Fragment::class.java.simpleName).commit()
+        fragmentTransition.add(R.id.fragmentContainer,fragment).commit()
     }
 }

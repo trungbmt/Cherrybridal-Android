@@ -69,7 +69,7 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
             if(position==0) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     mediaPlayer.start()
-                }, 100)
+                }, 50)
             }
             else mediaPlayer.start()
         }
@@ -77,7 +77,9 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
             mediaPlayer.stop()
             mediaPlayer.prepareAsync()
         }
-
+        fun pauseVideo() {
+            mediaPlayer.stop()
+        }
         var poster = itemView.tvPoster
         var title = itemView.tvTitle
     }
