@@ -1,10 +1,17 @@
 package com.vku.retrofitapicherrybridal.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.WindowManager
+import android.widget.Toast
+import android.widget.Toolbar
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
+import com.google.android.material.navigation.NavigationView
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.client.CategoryClient
@@ -17,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_dashboard.*
 import retrofit2.Call
 
 class DashboardActivity : AppCompatActivity() {
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +66,8 @@ class DashboardActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     private fun replaceFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
