@@ -41,7 +41,6 @@ class CategoryAdapter(var categories : List<Category>, var context : Context) : 
             .centerCrop()
             .placeholder(R.drawable.loading)
             .into(holder.img)
-        holder.img
     }
 
 }

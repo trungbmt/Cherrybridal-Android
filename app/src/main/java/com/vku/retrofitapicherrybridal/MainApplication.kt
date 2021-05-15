@@ -3,8 +3,14 @@ package com.vku.retrofitapicherrybridal
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.danikula.videocache.HttpProxyCacheServer
+
+
+
+
 
 class MainApplication : Application() {
+    private val proxy: HttpProxyCacheServer? = null
     init {
         instance = this
     }
