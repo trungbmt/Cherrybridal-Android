@@ -4,9 +4,9 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/item_home"
+            android:id="@+id/create_post"
             android:icon="@drawable/loading"
-            android:title="Home" />
+            android:title="Create Post" />
 
         <item
             android:id="@+id/item_blog"

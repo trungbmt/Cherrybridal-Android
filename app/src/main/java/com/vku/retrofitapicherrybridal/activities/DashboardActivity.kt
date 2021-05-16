@@ -16,46 +16,41 @@ import com.google.android.material.navigation.NavigationView
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.client.CategoryClient
-import com.vku.retrofitapicherrybridal.fragments.BlogFragment
-import com.vku.retrofitapicherrybridal.fragments.CartFragment
-import com.vku.retrofitapicherrybridal.fragments.MenuFragment
-import com.vku.retrofitapicherrybridal.fragments.ShopFragment
+import com.vku.retrofitapicherrybridal.fragments.*
 import com.vku.retrofitapicherrybridal.model.CategoryAPI
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import retrofit2.Call
 
-class DashboardActivity : AppCompatActivity() {
+class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
-
+    lateinit var mDrawerLayout : DrawerLayout
+    var blogFragment : BlogFragment? = null
+    var shopFragment : ShopFragment? = null
+    var currentFragment : Fragment? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_dashboard)
 
-        addFragment(BlogFragment.newInstance())
+        mDrawerLayout = dashboard_drawer
+        nav_menu.setNavigationItemSelectedListener(this)
+        blogFragment = BlogFragment.newInstance()
+        addFragment(blogFragment!!)
+        currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+
         bottomNavigation.show(0, false)
         bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.ic_android_black_24dp))
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.rings))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.cart))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.menu))
-
-        var blogFragment : BlogFragment? = null
-        var shopFragment : ShopFragment? = null
         bottomNavigation.setOnClickMenuListener{
-            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
-            if(it.id!=0&&currentFragment==blogFragment)
-            {
-                blogFragment?.pauseMusic()
-            }
             when (it.id){
                 0 -> {
-                    if(currentFragment!=blogFragment) {
-                        if(blogFragment==null) {
-                            blogFragment = BlogFragment()
-                            replaceFragment(blogFragment!!)
-                        } else replaceFragment(blogFragment!!)
-                    }
+                    if(blogFragment==null) {
+                        blogFragment = BlogFragment()
+                        replaceFragment(blogFragment!!)
+                    } else replaceFragment(blogFragment!!)
                 }
                 1 -> {
                     if(shopFragment==null) {
@@ -73,12 +68,18 @@ class DashboardActivity : AppCompatActivity() {
                     replaceFragment(BlogFragment.newInstance())
                 }
             }
+            currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         }
     }
 
 
-
+    public fun backToBlogFragment() {
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        fragmentTransition.add(R.id.fragmentContainer,blogFragment as Fragment).commit()
+    }
     private fun replaceFragment(fragment:Fragment){
+
+        blogFragment?.pauseMusic()
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.replace(R.id.fragmentContainer,fragment).commit()
     }
@@ -86,5 +87,21 @@ class DashboardActivity : AppCompatActivity() {
     private fun addFragment(fragment:Fragment){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.add(R.id.fragmentContainer,fragment).commit()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.create_post -> {
+                replaceFragment(NewPostFragment())
+                bottomNavigation.show(-1, true)
+            }
+            R.id.logout -> {
+                AuthActivity.logout()
+                AuthActivity.logout_fb()
+                AuthActivity.logout_gg(this)
+            }
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.END)
+        return true
     }
 }

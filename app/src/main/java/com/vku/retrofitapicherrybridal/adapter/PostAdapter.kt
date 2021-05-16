@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.danikula.videocache.HttpProxyCacheServer
+import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.model.Post
 import kotlinx.android.synthetic.main.single_post_row.view.*
@@ -97,7 +98,8 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
     override fun onBindViewHolder(holder: PostAdapter.ViewHolder, position: Int) {
         val post = posts.get(position)
         holder.poster.text = "trungbmt"
-        holder.title.text = post.title
+        holder.title.text = post.description
+        post.url = AppConfig.IMAGE_URL+post.url
         try {
             holder.mediaPlayer.setDataSource(proxy.getProxyUrl(post.url))
             holder.mediaPlayer.prepareAsync()
