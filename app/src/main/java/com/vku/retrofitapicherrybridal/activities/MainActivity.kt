@@ -17,6 +17,7 @@ import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.client.CategoryClient
 import com.vku.retrofitapicherrybridal.model.CategoryAPI
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.category_item_show.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.category_item_show)
-
+        scrollView.isHorizontalScrollBarEnabled = false
 //        loginToken()
     }
 
