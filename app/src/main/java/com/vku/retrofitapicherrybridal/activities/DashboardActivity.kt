@@ -3,6 +3,7 @@ package com.vku.retrofitapicherrybridal.activities
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import android.widget.Toolbar
@@ -28,11 +29,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     var blogFragment : BlogFragment? = null
     var shopFragment : ShopFragment? = null
     var currentFragment : Fragment? = null
+    var previousId = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_dashboard)
-
         mDrawerLayout = dashboard_drawer
         nav_menu.setNavigationItemSelectedListener(this)
         blogFragment = BlogFragment.newInstance()
@@ -47,22 +48,29 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         bottomNavigation.setOnClickMenuListener{
             when (it.id){
                 0 -> {
+                    previousId = 0
                     if(blogFragment==null) {
                         blogFragment = BlogFragment()
                         replaceFragment(blogFragment!!)
                     } else replaceFragment(blogFragment!!)
                 }
                 1 -> {
+                    previousId = 1
                     if(shopFragment==null) {
                         shopFragment = ShopFragment()
                         replaceFragment(shopFragment!!)
                     } else replaceFragment(shopFragment!!)
                 }
                 2 -> {
+                    previousId = 2
                     replaceFragment(CartFragment.newInstance())
                 }
                 3 -> {
-                    replaceFragment(MenuFragment.newInstance())
+                    if(mDrawerLayout.isDrawerOpen(GravityCompat.END)) {
+                        mDrawerLayout.closeDrawer(GravityCompat.END)
+                    } else {
+                        mDrawerLayout.openDrawer(GravityCompat.END)
+                    }
                 }
                 else -> {
                     replaceFragment(BlogFragment.newInstance())
@@ -70,6 +78,13 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             }
             currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
         }
+        mDrawerLayout.addDrawerListener(object : ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.chery_bridal, R.drawable.chery_bridal) {
+            override fun onDrawerClosed(drawerView: View) {
+                bottomNavigation.show(previousId)
+                super.onDrawerClosed(drawerView)
+            }
+        })
+
     }
 
 
