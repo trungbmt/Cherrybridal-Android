@@ -1,28 +1,19 @@
 package com.vku.retrofitapicherrybridal.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.adapter.PostAdapter
-import com.vku.retrofitapicherrybridal.model.Post
-import kotlinx.android.synthetic.main.fragment_blog.*
 import kotlinx.android.synthetic.main.fragment_blog.view.*
-import com.danikula.videocache.HttpProxyCacheServer
-import com.vku.retrofitapicherrybridal.adapter.CategoryAdapter
 import com.vku.retrofitapicherrybridal.viewmodel.BlogViewModel
-import com.vku.retrofitapicherrybridal.viewmodel.ShopViewModel
-import kotlinx.android.synthetic.main.fragment_shop.view.*
 import java.lang.Exception
 
 
@@ -73,7 +64,10 @@ class BlogFragment : Fragment() {
         return rootView
     }
     fun pauseMusic() {
-        (viewpagerSearch.findViewHolderForAdapterPosition(curPosition) as PostAdapter.ViewHolder).pauseVideo()
+        try {
+
+            (viewpagerSearch.findViewHolderForAdapterPosition(curPosition) as PostAdapter.ViewHolder).pauseVideo()
+        } catch (e: Exception) {}
     }
     fun getPosts() {
 

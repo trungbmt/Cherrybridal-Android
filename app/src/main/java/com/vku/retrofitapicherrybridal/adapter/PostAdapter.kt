@@ -79,9 +79,7 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
             mediaPlayer.prepareAsync()
         }
         fun pauseVideo() {
-            try {
-                mediaPlayer.stop()
-            } catch (e: Exception) {}
+            mediaPlayer.stop()
         }
         var poster = itemView.tvPoster
         var title = itemView.tvTitle
