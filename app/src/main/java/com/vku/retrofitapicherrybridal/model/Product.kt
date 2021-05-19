@@ -20,4 +20,7 @@ class Product() {
 
     @SerializedName("product_img")
     var img : String = ""
+
+    @SerializedName("product_details")
+    var productDetails = ArrayList<ProductDetail>()
 }
