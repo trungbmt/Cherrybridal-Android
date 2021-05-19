@@ -40,7 +40,7 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:id="@+id/textView11"
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/leckerli_one"

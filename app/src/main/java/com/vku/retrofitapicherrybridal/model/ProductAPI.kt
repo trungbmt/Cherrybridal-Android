@@ -6,7 +6,7 @@ class ProductAPI() {
     var current_page : Int = 0
 
     @SerializedName("data")
-    var products : List<Product> = ArrayList<Product>()
+    var products : ArrayList<Product> = ArrayList<Product>()
 
     var first_page_url : String = ""
     var from : Int = 0
