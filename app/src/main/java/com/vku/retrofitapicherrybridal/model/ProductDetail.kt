@@ -3,6 +3,7 @@ package com.vku.retrofitapicherrybridal.model
 import com.google.gson.annotations.SerializedName
 
 class ProductDetail() {
+    @SerializedName("detail_id")
     var id = 0
     var product_id = 0
 

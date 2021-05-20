@@ -1,6 +1,7 @@
 package com.vku.retrofitapicherrybridal.model
 
 import com.google.gson.annotations.SerializedName
+import com.vku.retrofitapicherrybridal.AppConfig
 
 class Product() {
     @SerializedName("product_id")
@@ -21,6 +22,23 @@ class Product() {
     @SerializedName("product_img")
     var img : String = ""
 
+    @SerializedName("lowest_price")
+    var price : String = ""
+
+    @SerializedName("rating_value")
+    var rating : Float = 0F
+
     @SerializedName("product_details")
     var productDetails = ArrayList<ProductDetail>()
+
+    fun getTotalAmount() : Int {
+        var total = 0
+        productDetails.forEach {
+            total+= it.amount
+        }
+        return total
+    }
+    fun getImageUrl() : String {
+        return AppConfig.IMAGE_URL+ this.img
+    }
 }
