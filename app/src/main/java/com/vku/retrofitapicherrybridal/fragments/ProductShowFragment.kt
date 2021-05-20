@@ -41,6 +41,7 @@ class ProductShowFragment () : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         rootView = inflater.inflate(R.layout.product_show, container, false)
 
+        rootView = inflater.inflate(R.layout.product_list, container, false)
         getProduct()
 
         rootView.btnReduce.setOnClickListener {

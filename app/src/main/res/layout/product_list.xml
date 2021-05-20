@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="360dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline2"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="360dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+        android:id="@+id/firstText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/leckerli_one"
+        android:text="A"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/secondText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/leckerli_one"
+        android:text="Good"
+        android:textColor="@color/selectedIconColor"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/firstText"
+        app:layout_constraintTop_toTopOf="@+id/firstText"
+        android:layout_marginLeft="8dp" />
+    <TextView
+        android:id="@+id/thirdText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/leckerli_one"
+        android:text="Choice"
+        android:textColor="@color/selectedIconColor"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/secondText"
+        app:layout_constraintTop_toTopOf="@+id/secondText"
+        android:layout_marginLeft="8dp" />
+    <TextView
+        android:id="@+id/fourthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/leckerli_one"
+        android:text="Make"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@+id/thirdText"
+        app:layout_constraintTop_toTopOf="@+id/thirdText"/>
+    <TextView
+        android:id="@+id/fifthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/leckerli_one"
+        android:text="The"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/firstText"/>
+    <TextView
+        android:id="@+id/sixthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:fontFamily="@font/leckerli_one"
+        android:text="Perfect Wedding"
+        android:textColor="@color/selectedIconColor"
+        android:textSize="22sp"
+        app:layout_constraintStart_toEndOf="@id/fifthText"
+        app:layout_constraintTop_toTopOf="@id/fifthText"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_settings"/>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/custom_search_view"
+        android:elevation="20dp"
+        android:queryHint="Search here..."
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/sixthText"
+        tools:targetApi="lollipop"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintTop_toBottomOf="@id/searchView"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
