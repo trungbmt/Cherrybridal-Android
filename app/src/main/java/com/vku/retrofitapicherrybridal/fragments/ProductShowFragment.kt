@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.product_show.*
 class ProductShowFragment () : Fragment() {
     lateinit var rootView : View
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.product_show, container, false)
+        rootView = inflater.inflate(R.layout.product_list, container, false)
         getProduct()
         return rootView
     }
