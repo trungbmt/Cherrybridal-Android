@@ -21,7 +21,10 @@ class MainActivity : AppCompatActivity() {
 //
 //        var productShowFragment = ProductShowFragment()
 //        productShowFragment.arguments = bundle
+        var bundle = Bundle()
+        bundle.putInt("category_id", 1)
         var shopProductFragment = ShopProductFragment()
+        shopProductFragment.arguments = bundle
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, shopProductFragment).commit()
     }
 

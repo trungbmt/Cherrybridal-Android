@@ -20,6 +20,7 @@ class ShopProductFragment : Fragment() {
 
     private lateinit var rootView : View
     private lateinit var productViewModel : ProductViewModel
+    private var category = -1
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -27,8 +28,17 @@ class ShopProductFragment : Fragment() {
 
         rootView = inflater.inflate(R.layout.fragment_product_list, container, false)
 
+        var options = HashMap<String, String>()
+        val bundle = this.arguments
+        if (bundle != null) {
+            category = bundle.getInt("category_id")
+            if(category!=-1) {
+                options.put("category", category.toString())
+            }
+        }
+
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
-        productViewModel.getProducts()
+        productViewModel.getProducts(options)
         productViewModel.getProductsLiveData().observe(this, Observer {
             var productAdapter = ProductAdapater(it, this.context!!)
             rootView.rv_product.adapter = productAdapter

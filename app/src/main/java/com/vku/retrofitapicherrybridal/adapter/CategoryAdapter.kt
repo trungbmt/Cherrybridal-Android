@@ -1,6 +1,8 @@
 package com.vku.retrofitapicherrybridal.adapter
 
+import android.app.Activity
 import android.content.Context
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +13,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.activities.DashboardActivity
+import com.vku.retrofitapicherrybridal.fragments.ShopFragment
+import com.vku.retrofitapicherrybridal.fragments.ShopProductFragment
 import com.vku.retrofitapicherrybridal.model.Category
 import kotlinx.android.synthetic.main.category_item.view.*
 
 class CategoryAdapter(var categories : List<Category>, var context : Context) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {
+                var bundle = Bundle()
+                var category = categories.get(absoluteAdapterPosition).id
+                bundle.putInt("category_id", category)
+                var shopProductFragment = ShopProductFragment()
+                shopProductFragment.arguments = bundle
+                (context as DashboardActivity).replaceOtherFragment(shopProductFragment)
+            }
+        }
         var img : ImageView = itemView.category_item_img
         var name : TextView = itemView.category_item_name
     }
@@ -23,6 +38,7 @@ class CategoryAdapter(var categories : List<Category>, var context : Context) : 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         var layoutinflater = LayoutInflater.from(parent.context)
         var view = layoutinflater.inflate(R.layout.category_item, parent, false)
+
 
         return ViewHolder(view)
     }

@@ -92,6 +92,11 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.add(R.id.fragmentContainer,blogFragment as Fragment).commit()
     }
+    fun replaceOtherFragment(fragment: Fragment) {
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        fragmentTransition.replace(R.id.fragmentContainer,fragment).commit()
+        fragmentTransition.addToBackStack(null)
+    }
     private fun replaceFragment(fragment:Fragment){
 
         blogFragment?.pauseMusic()

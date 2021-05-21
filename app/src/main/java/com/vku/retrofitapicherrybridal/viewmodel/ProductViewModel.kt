@@ -44,8 +44,8 @@ class ProductViewModel : ViewModel() {
 
         })
     }
-    public fun getProducts() {
-        val productService = productClient.getProducts()
+    public fun getProducts(options : HashMap<String, String>) {
+        val productService = productClient.getProducts(options)
         productService.enqueue(object : Callback<ProductAPI> {
             override fun onFailure(call: Call<ProductAPI>, t: Throwable) {
                 Log.d("ResponseProduct", "Fail: "+t.message)
