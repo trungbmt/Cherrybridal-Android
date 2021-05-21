@@ -44,7 +44,7 @@ class ProductViewModel : ViewModel() {
 
         })
     }
-    private fun getProducts() {
+    public fun getProducts() {
         val productService = productClient.getProducts()
         productService.enqueue(object : Callback<ProductAPI> {
             override fun onFailure(call: Call<ProductAPI>, t: Throwable) {
