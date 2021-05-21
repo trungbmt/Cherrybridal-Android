@@ -39,9 +39,17 @@ class ProductShowFragment () : Fragment() {
     var detail_id = 0
     var product = Product()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+<<<<<<< HEAD
+        rootView = inflater.inflate(R.layout.item_show, container, false)
+=======
         rootView = inflater.inflate(R.layout.product_show, container, false)
 
+<<<<<<< HEAD
         rootView = inflater.inflate(R.layout.fragment_product_list, container, false)
+=======
+        rootView = inflater.inflate(R.layout.product_list, container, false)
+>>>>>>> 1eccd8969f35c0a94bc276a70672098ecea65d07
+>>>>>>> 442e487c8588f7452f79c6b3dafd70118bfe7940
         getProduct()
 
         rootView.btnReduce.setOnClickListener {
