@@ -33,8 +33,8 @@ class ShopProductFragment : Fragment() {
             var productAdapter = ProductAdapater(it, this.context!!)
             rootView.rv_product.adapter = productAdapter
         })
-        rootView.rv_category.setHasFixedSize(true)
-        rootView.rv_category.layoutManager = LinearLayoutManager(this.context)
+        rootView.rv_product.setHasFixedSize(true)
+        rootView.rv_product.layoutManager = LinearLayoutManager(this.context)
         return rootView
     }
 }

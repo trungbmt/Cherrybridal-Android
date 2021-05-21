@@ -23,18 +23,18 @@
         <activity android:name="com.vku.retrofitapicherrybridal.activities.AuthActivity"></activity>
         <activity android:name="com.vku.retrofitapicherrybridal.activities.DashboardActivity"></activity>
         <activity android:name="com.vku.retrofitapicherrybridal.activities.SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name="com.vku.retrofitapicherrybridal.activities.MainActivity">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
+        </activity>
+        <activity android:name="com.vku.retrofitapicherrybridal.activities.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data

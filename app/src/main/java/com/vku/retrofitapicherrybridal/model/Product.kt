@@ -23,7 +23,7 @@ class Product() {
     var img : String = ""
 
     @SerializedName("lowest_price")
-    var price : String = ""
+    var price : Int = 0
 
     @SerializedName("rating_value")
     var rating : Float = 0F

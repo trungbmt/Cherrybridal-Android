@@ -6,21 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:paddingVertical="10dp"
+    android:layout_marginVertical="5dp"
     android:background="@drawable/grey_radial">
 
     <ImageView
-        android:id="@+id/item_img"
+        android:id="@+id/img"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         android:src="@drawable/dress1"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:layout_margin="20dp"/>
 
     <TextView
-        android:id="@+id/item_txt"
+        android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/item_img"
+        android:layout_below="@+id/img"
         android:text="Cherry Wedding Dress"
         android:fontFamily="@font/leckerli_one"
         android:textAlignment="center"
@@ -28,9 +31,10 @@
         android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/tvPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_txt"
+        android:layout_below="@id/tvName"
         android:layout_marginTop="5dp"
         android:text="2.000.000 $"
         android:fontFamily="@font/anonymous_pro"
