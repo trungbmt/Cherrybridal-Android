@@ -50,8 +50,7 @@ class ProductAdapater(var products : ArrayList<Product>, var context : Context) 
         Glide
                 .with(context)
                 .load(product.getImageUrl())
-                .centerCrop()
-                .placeholder(R.drawable.loading)
+                .fitCenter()
                 .into(holder.img)
     }
 }

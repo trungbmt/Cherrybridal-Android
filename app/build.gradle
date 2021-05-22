@@ -38,6 +38,7 @@ android {
 
 dependencies {
     def lifecycle_version = "2.3.1"
+    implementation 'com.synnapps:carouselview:0.1.4'
     compile 'com.danikula:videocache:2.7.1'
     compile 'com.facebook.android:facebook-share:[5,6)'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"

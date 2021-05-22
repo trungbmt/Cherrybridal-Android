@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -29,8 +30,30 @@ class AuthActivity : AppCompatActivity() {
         supportActionBar?.hide()
         supportFragmentManager.beginTransaction().replace(R.id.frameAuthContainer, SignInFragment()).commit()
         if(userPref.getBoolean("isLoggedIn", false)) {
-            startActivity(Intent(this, DashboardActivity::class.java))
-            finish()
+
+            var pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+            pDialog.setCancelable(false)
+            pDialog.show()
+            var headers = HashMap<String, String>()
+            var token = userPref.getString("token", null)
+            if(token!=null) {
+                headers.put("Authorization", "Bearer " + token)
+                val authService = AppConfig.retrofit.create(AuthClient::class.java).checkToken(headers)
+                authService.enqueue(object : Callback<JsonObject>{
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                        pDialog.dismiss()
+                    }
+
+                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                        pDialog.dismiss()
+                        if(response.isSuccessful) {
+                            startActivity(Intent(this@AuthActivity, DashboardActivity::class.java))
+                            finish()
+                        }
+                    }
+
+                })
+            }
         }
 
     }

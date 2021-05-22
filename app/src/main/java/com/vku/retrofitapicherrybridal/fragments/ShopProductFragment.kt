@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.adapter.CategoryAdapter
@@ -44,7 +45,7 @@ class ShopProductFragment : Fragment() {
             rootView.rv_product.adapter = productAdapter
         })
         rootView.rv_product.setHasFixedSize(true)
-        rootView.rv_product.layoutManager = LinearLayoutManager(this.context)
+        rootView.rv_product.layoutManager = GridLayoutManager(this.context, 2)
         return rootView
     }
 }

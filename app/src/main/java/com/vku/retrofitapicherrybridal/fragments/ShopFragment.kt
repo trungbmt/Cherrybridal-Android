@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.adapter.CategoryAdapter
 import com.vku.retrofitapicherrybridal.viewmodel.ShopViewModel
@@ -30,9 +31,20 @@ class ShopFragment : Fragment() {
             var categoryAdapter = CategoryAdapter(it, this.context!!)
             rootView.rv_category.adapter = categoryAdapter
         })
+        var banners = ArrayList<Int>()
+        banners.add(R.drawable.banner1)
+        banners.add(R.drawable.banner2)
+        banners.add(R.drawable.banner3)
+
         rootView = inflater.inflate(R.layout.fragment_shop, container, false)
+        
+        rootView.carouselView.pageCount = banners.size
+        rootView.carouselView.setImageListener { position, imageView ->
+            imageView.setImageResource(banners.get(position));
+        }
+
         rootView.rv_category.setHasFixedSize(true)
-        rootView.rv_category.layoutManager = GridLayoutManager(this.context, 2)
+        rootView.rv_category.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         return rootView
     }
     override fun onPause() {

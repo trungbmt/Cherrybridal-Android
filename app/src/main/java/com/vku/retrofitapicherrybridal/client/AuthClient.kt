@@ -19,7 +19,8 @@ interface AuthClient {
         @Query("password") password : String,
         @Query("password_confirmation") confirm : String
     ) : Call<JsonObject>
-
+    @POST("api/check-token")
+    fun checkToken(@HeaderMap headers: Map<String, String>) : Call<JsonObject>
 
     @GET(value = "api/logout")
     fun logout(@HeaderMap headers : Map<String, String>) : Call<JsonObject>
