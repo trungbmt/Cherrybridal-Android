@@ -10,6 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -20,24 +21,65 @@ import com.facebook.share.model.ShareLinkContent
 import com.facebook.share.model.ShareMediaContent
 import com.facebook.share.model.ShareVideo
 import com.facebook.share.widget.ShareDialog
+import com.google.gson.JsonObject
 import com.vku.retrofitapicherrybridal.AppConfig
+import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.client.PostClient
 import com.vku.retrofitapicherrybridal.model.Post
+import com.vku.retrofitapicherrybridal.model.PostAPI
 import kotlinx.android.synthetic.main.single_post_row.view.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class PostAdapter(var posts : ArrayList<Post>, var context : Context) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
+    private val postClient: PostClient = AppConfig.retrofit.create(PostClient::class.java)
+    var token = MainApplication.userSharedPreferences().getString("token", null)
 
     private val proxy : HttpProxyCacheServer = HttpProxyCacheServer(this.context)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         var background = itemView.textureView
         var imgview = itemView.imageView
-        var btnPlay = itemView.btnPlay
-        var url : String? = null
-        var btnShare = itemView.btnShare
-        var mediaPlayer : MediaPlayer = MediaPlayer()
-        init {
 
+        var tvLikeCount = itemView.tvLikeCount
+        var poster = itemView.tvPoster
+        var title = itemView.tvTitle
+
+        var btnLike = itemView.btnLike
+        var btnPlay = itemView.btnPlay
+        var btnShare = itemView.btnShare
+        var url : String? = null
+        var mediaPlayer : MediaPlayer = MediaPlayer()
+
+        init {
+            btnLike.setOnClickListener {
+                val post = posts.get(absoluteAdapterPosition)
+                if(post.liked) {
+                    post.liked = false
+                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_like_64))
+                } else {
+                    post.liked = true
+                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_liked_64))
+                }
+
+                var options = HashMap<String, String>()
+                if(token!=null) {
+                    options.put("Authorization", "Bearer " + token)
+                }
+                val postService: Call<JsonObject> = postClient.likePost(options, post.id)
+                postService.enqueue(object : Callback<JsonObject>{
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    }
+
+                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                        tvLikeCount.text = response.body()?.get("post_like")?.asInt.toString()
+                        Log.d("LIKECHECK", response.toString())
+                    }
+                })
+            }
             mediaPlayer.setOnErrorListener(object : MediaPlayer.OnErrorListener {
                 override fun onError(mp: MediaPlayer?, what: Int, extra: Int): Boolean {
                     Log.d("ERRORPOST", "postionz $absoluteAdapterPosition what $what")
@@ -86,8 +128,6 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
         fun pauseVideo() {
             mediaPlayer.stop()
         }
-        var poster = itemView.tvPoster
-        var title = itemView.tvTitle
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostAdapter.ViewHolder {
         var layoutinflater = LayoutInflater.from(parent.context)
@@ -104,6 +144,13 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
         val post = posts.get(position)
         holder.poster.text = post.poster.username
         holder.title.text = post.description
+        holder.tvLikeCount.text = post.self_like.toString()
+        Log.d("CHECK", "post ${post.id}, liked ${post.liked}")
+        if(post.liked) {
+            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_liked_64))
+        } else {
+            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_like_64))
+        }
 
         holder.btnShare.setOnClickListener {
             val shareContent = ShareLinkContent.Builder()
