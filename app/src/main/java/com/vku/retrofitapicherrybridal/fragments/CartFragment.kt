@@ -14,7 +14,7 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_cart, container, false)
+        return inflater.inflate(R.layout.cart_row, container, false)
     }
 
     companion object {
