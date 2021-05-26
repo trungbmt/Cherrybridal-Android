@@ -2,7 +2,7 @@ package com.vku.retrofitapicherrybridal.model
 
 import com.google.gson.annotations.SerializedName
 
-class Cart() {
+class Cart(){
     @SerializedName("cart_id")
     var id = 0
 

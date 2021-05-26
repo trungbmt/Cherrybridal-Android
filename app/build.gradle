@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.wear:wear:1.1.0'
+    compileOnly 'com.google.android.wearable:wearable:2.8.1'
     def lifecycle_version = "2.3.1"
     implementation 'com.synnapps:carouselview:0.1.4'
     compile 'com.danikula:videocache:2.7.1'
