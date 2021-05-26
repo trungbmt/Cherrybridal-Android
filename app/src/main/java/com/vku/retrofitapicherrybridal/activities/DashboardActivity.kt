@@ -91,6 +91,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     public fun backToBlogFragment() {
         val fragmentTransition = supportFragmentManager.beginTransaction()
         fragmentTransition.add(R.id.fragmentContainer,blogFragment as Fragment).commit()
+        bottomNavigation.show(0, true)
     }
     fun replaceOtherFragment(fragment: Fragment) {
         val fragmentTransition = supportFragmentManager.beginTransaction()

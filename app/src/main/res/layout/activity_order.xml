@@ -125,7 +125,7 @@
                         android:id="@+id/inProvince"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="phone" />
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -140,7 +140,7 @@
                     android:id="@+id/inAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="phone" />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
@@ -148,7 +148,6 @@
             android:id="@+id/order_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_weight="0"
             android:background="#fff"
             app:layout_constraintBottom_toTopOf="@id/linearLayout"
@@ -206,7 +205,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:text="đ 5.000.000"
+                android:text="đ0"
                 android:textColor="#000000"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -250,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="đ 5.000.000"
+                android:text="đ0"
                 android:textColor="#000000"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -265,18 +264,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/final_price" />
-
-            <TextView
-                android:id="@+id/money_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="5dp"
-                android:text="You save đ 30.000 on this order"
-                android:textColor="#60BC10"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider3" />
 
             <TextView
                 android:id="@+id/total_product_amount"
@@ -320,7 +307,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/cart_continue_btn"
+                android:id="@+id/btn_order"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"

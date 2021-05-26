@@ -56,7 +56,7 @@ class SignInFragment : Fragment() {
 
         rootView = inflater.inflate(R.layout.fragment_sign_in, container,false)
         rootView.txtSignUp.setOnClickListener{
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.frameAuthContainer, SignUpFragment()).commit()
+            requireActivity().supportFragmentManager.beginTransaction().replace(R.id.frameAuthContainer, SignUpFragment()).commit()
         }
         rootView.txtUsername.doOnTextChanged { text, start, before, count ->
             if(!txtUsername.text.toString().isEmpty()) {
