@@ -1,20 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:background="#fff"
+    android:elevation="3dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/product_img"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/chery_bridal"/>
+
+
     <TextView
-        android:id="@+id/tvName"
-        android:textStyle="bold"
-        android:text="Item name"
+        android:id="@+id/product_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:text="Cherry Wedding Dress"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:fontFamily="@font/leckerli_one"
+        app:layout_constraintStart_toEndOf="@+id/product_img"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
     <TextView
-        android:id="@+id/tvDetail"
-        android:layout_marginLeft="10dp"
-        android:text="(Size: X, x1)"
+        android:id="@+id/order_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
-</LinearLayout>
+        android:text="S"
+        android:textSize="18sp"
+        android:textColor="#75000000"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="@+id/product_title"
+        app:layout_constraintTop_toBottomOf="@+id/product_title"/>
+
+    <TextView
+        android:id="@+id/comma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=","
+        android:textSize="18sp"
+        android:textColor="#75000000"
+        android:fontFamily="@font/anonymous_pro"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/order_size"
+        app:layout_constraintTop_toBottomOf="@+id/product_title"/>
+
+    <TextView
+        android:id="@+id/order_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x2"
+        android:textSize="18sp"
+        android:textColor="#75000000"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toEndOf="@+id/comma"
+        app:layout_constraintTop_toBottomOf="@+id/product_title"/>
+    <View
+        android:id="@+id/order_divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_img" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

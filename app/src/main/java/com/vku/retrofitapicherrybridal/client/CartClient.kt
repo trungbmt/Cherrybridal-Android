@@ -16,4 +16,6 @@ interface CartClient {
     @POST("api/carts")
     fun storeCart(@HeaderMap headers : Map<String, String>, @Query("product_id") product_id : Int, @Query("detail_id") detail_id : Int, @Query("amount") amount : Int) : Call<JsonObject>
 
+    @POST("api/order")
+    fun order(@HeaderMap headers: Map<String, String>, @QueryMap queries: Map<String, String>) : Call<JsonObject>
 }

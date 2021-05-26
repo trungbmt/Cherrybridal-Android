@@ -1,5 +1,6 @@
 package com.vku.retrofitapicherrybridal.fragments
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,8 @@ class CartFragment : Fragment() {
     lateinit var rootView : View
     lateinit var cartViewModel: CartViewModel
     var carts = ArrayList<Cart>()
+    var price = 0
+    val REQUEST_ORDER = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +42,7 @@ class CartFragment : Fragment() {
         })
         cartViewModel.mCostLiveData.observe(viewLifecycleOwner, Observer {
             rootView.total_cart_amount.text = Tools.format_currency(it)
+            price = it
         })
 
         rootView.cart_list_rv.layoutManager = LinearLayoutManager(this.context)
@@ -47,10 +51,18 @@ class CartFragment : Fragment() {
             var jsonCarts = Gson().toJson(carts)
             var intent = Intent(context, OrderActivity::class.java)
             intent.putExtra("carts", jsonCarts)
-            startActivityForResult(intent, 0)
+            intent.putExtra("price", price)
+            startActivityForResult(intent, REQUEST_ORDER)
         }
 
         return rootView
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==REQUEST_ORDER && resultCode == Activity.RESULT_OK) {
+            (this.activity as DashboardActivity).backToBlogFragment()
+        }
     }
 
     companion object {
