@@ -32,14 +32,6 @@
         app:layout_constraintStart_toEndOf="@+id/product_img"
         app:layout_constraintTop_toTopOf="parent"/>
 
-<!--    <ImageView-->
-<!--        android:id="@+id/free_coupon_icon"-->
-<!--        android:layout_width="15dp"-->
-<!--        android:layout_height="15dp"-->
-<!--        app:tint="@color/selectedIconColor"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/product_title"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/product_title"-->
-<!--        android:src="@drawable/coupon_icon" />-->
 
     <TextView
         android:id="@+id/size"
@@ -135,38 +127,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_price"/>
 
-<!--    <LinearLayout-->
-<!--        android:id="@+id/voucher_redemption_layout"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="#FF3030"-->
-<!--        android:gravity="right"-->
-<!--        android:layout_marginTop="5dp"-->
-<!--        android:orientation="horizontal"-->
-<!--        android:padding="16dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/voucher_apply">-->
-
-
-<!--        <TextView-->
-<!--            android:id="@+id/tV_voucher_redemption"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_weight="1"-->
-<!--            android:text="Redeem Voucher for more discount"-->
-<!--            android:textAlignment="center"-->
-<!--            android:textColor="#fff" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/voucher_redemption_btn"-->
-<!--            android:layout_width="80dp"-->
-<!--            android:layout_height="35dp"-->
-<!--            android:background="@drawable/border_background"-->
-<!--            android:text="Redeem"-->
-<!--            android:textColor="#fff"-->
-<!--            android:textSize="10sp" />-->
-<!--    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/remove_item_btn"

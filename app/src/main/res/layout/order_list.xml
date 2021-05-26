@@ -199,7 +199,6 @@
             android:layout_marginLeft="5dp"
             android:backgroundTint="@color/selectedIconColor"
             android:text="Place Order"
-            android:fontFamily="@font/aclonica"
             android:textColor="#fff"
             android:textSize="16sp"
             android:textStyle="bold"/>
