@@ -5,13 +5,14 @@
 
         <item
             android:id="@+id/create_post"
+            android:checkable="false"
             android:icon="@drawable/loading"
             android:title="Create Post" />
 
         <item
-            android:id="@+id/item_blog"
+            android:id="@+id/order_list"
             android:icon="@drawable/loading"
-            android:title="Blog" />
+            android:title="Your Order" />
 
         <item
             android:id="@+id/item_shop"

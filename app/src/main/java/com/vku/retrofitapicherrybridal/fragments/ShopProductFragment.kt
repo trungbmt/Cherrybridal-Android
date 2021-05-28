@@ -1,9 +1,11 @@
 package com.vku.retrofitapicherrybridal.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,12 +42,31 @@ class ShopProductFragment : Fragment() {
 
         productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
         productViewModel.getProducts(options)
-        productViewModel.getProductsLiveData().observe(this, Observer {
-            var productAdapter = ProductAdapater(it, this.context!!)
+        productViewModel.getProductsLiveData().observe(viewLifecycleOwner, Observer {
+            var productAdapter = ProductAdapater(it, this.requireContext())
             rootView.rv_product.adapter = productAdapter
         })
         rootView.rv_product.setHasFixedSize(true)
         rootView.rv_product.layoutManager = GridLayoutManager(this.context, 2)
+
+        rootView.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query != null) {
+                    options.put("search", query)
+                    productViewModel.getProducts(options)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(TextUtils.isEmpty(newText)) {
+                    options.remove("search")
+                    productViewModel.getProducts(options)
+                }
+                return true
+            }
+
+        })
         return rootView
     }
 }

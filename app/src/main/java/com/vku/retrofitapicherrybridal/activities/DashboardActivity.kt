@@ -30,6 +30,8 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     var shopFragment : ShopFragment? = null
     var currentFragment : Fragment? = null
     var previousId = 0
+    var backNav = true
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -80,7 +82,12 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         }
         mDrawerLayout.addDrawerListener(object : ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.chery_bridal, R.drawable.chery_bridal) {
             override fun onDrawerClosed(drawerView: View) {
-                bottomNavigation.show(previousId)
+                if(backNav) {
+                    bottomNavigation.show(previousId)
+
+                } else {
+                    backNav = true
+                }
                 super.onDrawerClosed(drawerView)
             }
         })
@@ -115,11 +122,20 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
             R.id.create_post -> {
                 replaceFragment(NewPostFragment())
                 bottomNavigation.show(-1, true)
+                backNav = false
+            }
+            R.id.order_list -> {
+                replaceFragment(OrderFragment())
+                bottomNavigation.show(-1, true)
+                backNav = false
             }
             R.id.logout -> {
                 AuthActivity.logout()
                 AuthActivity.logout_fb()
                 AuthActivity.logout_gg(this)
+            }
+            else -> {
+                backNav = true
             }
         }
         mDrawerLayout.closeDrawer(GravityCompat.END)

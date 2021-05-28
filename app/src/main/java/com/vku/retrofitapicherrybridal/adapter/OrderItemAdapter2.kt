@@ -9,10 +9,10 @@ import com.bumptech.glide.Glide
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.Tools
-import com.vku.retrofitapicherrybridal.model.Cart
+import com.vku.retrofitapicherrybridal.model.OrderItem
 import kotlinx.android.synthetic.main.order_item_row.view.*
 
-class OrderItemAdapater(var items : ArrayList<Cart>, var context : Context) : RecyclerView.Adapter<OrderItemAdapater.ViewHolder>() {
+class OrderItemAdapater2(var items : ArrayList<OrderItem>, var context : Context) : RecyclerView.Adapter<OrderItemAdapater2.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var img = itemView.product_img
         var tvName = itemView.product_title
@@ -35,11 +35,12 @@ class OrderItemAdapater(var items : ArrayList<Cart>, var context : Context) : Re
         var item = items.get(position)
         holder.tvName.text = item.product.name
         holder.tvSize.text = item.detail.size
-        holder.tvAmount.text = item.amount.toString()
-        holder.tvPrice.text = Tools.format_currency(item.amount*item.detail.price)
+        holder.tvAmount.text = item.quantity.toString()
+        holder.tvPrice.text = Tools.format_currency(item.quantity*item.detail.price)
         Glide.with(context)
-            .load(AppConfig.IMAGE_URL+item.product.img)
-            .centerCrop()
-            .into(holder.img)
+                .load(AppConfig.IMAGE_URL+item.product.img)
+                .centerCrop()
+                .into(holder.img)
     }
+
 }
