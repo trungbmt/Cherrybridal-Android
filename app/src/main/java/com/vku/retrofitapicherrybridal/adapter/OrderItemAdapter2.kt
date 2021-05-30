@@ -35,7 +35,7 @@ class OrderItemAdapater2(var items : ArrayList<OrderItem>, var context : Context
         var item = items.get(position)
         holder.tvName.text = item.product.name
         holder.tvSize.text = item.detail.size
-        holder.tvAmount.text = item.quantity.toString()
+        holder.tvAmount.text = "x${item.quantity}"
         holder.tvPrice.text = Tools.format_currency(item.quantity*item.detail.price)
         Glide.with(context)
                 .load(AppConfig.IMAGE_URL+item.product.img)

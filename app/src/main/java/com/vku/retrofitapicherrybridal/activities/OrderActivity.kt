@@ -18,6 +18,7 @@ import com.vku.retrofitapicherrybridal.adapter.OrderItemAdapater
 import com.vku.retrofitapicherrybridal.client.CartClient
 import com.vku.retrofitapicherrybridal.model.Cart
 import kotlinx.android.synthetic.main.activity_order.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,7 +72,7 @@ class OrderActivity : AppCompatActivity() {
                 cartService.enqueue(object : Callback<JsonObject>{
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                         pDialog.dismiss()
-                        Log.d("CHECKOUT", "${t.message}")
+                        Log.d("CHECKOUT", "Failure ${t.message}")
                     }
 
                     override fun onResponse(
@@ -90,11 +91,12 @@ class OrderActivity : AppCompatActivity() {
                             }
                             pDialog.show()
                         } else {
+                            val jObjError = JSONObject(response.errorBody()?.string())
+                            val message = jObjError.getString("message")
                             pDialog = SweetAlertDialog(this@OrderActivity, SweetAlertDialog.ERROR_TYPE)
-                            pDialog.titleText = response.body()?.get("message")?.asString
+                            pDialog.titleText = message
                             pDialog.show()
                         }
-                        Log.d("CHECKOUT", "${response.toString()}")
                     }
 
                 })

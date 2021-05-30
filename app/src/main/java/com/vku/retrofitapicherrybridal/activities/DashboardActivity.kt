@@ -43,7 +43,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
 
         bottomNavigation.show(0, false)
-        bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.ic_android_black_24dp))
+        bottomNavigation.add(MeowBottomNavigation.Model(0, R.drawable.ic_blog))
         bottomNavigation.add(MeowBottomNavigation.Model(1, R.drawable.rings))
         bottomNavigation.add(MeowBottomNavigation.Model(2, R.drawable.cart))
         bottomNavigation.add(MeowBottomNavigation.Model(3, R.drawable.menu))
@@ -130,6 +130,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 backNav = false
             }
             R.id.logout -> {
+                blogFragment?.pauseMusic()
                 AuthActivity.logout()
                 AuthActivity.logout_fb()
                 AuthActivity.logout_gg(this)

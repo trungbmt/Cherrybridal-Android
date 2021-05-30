@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.adapter.CategoryAdapter
+import com.vku.retrofitapicherrybridal.model.Category
 import com.vku.retrofitapicherrybridal.viewmodel.ShopViewModel
 import kotlinx.android.synthetic.main.fragment_shop.*
 import kotlinx.android.synthetic.main.fragment_shop.view.*

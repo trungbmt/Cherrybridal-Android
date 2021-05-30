@@ -116,7 +116,9 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
         fun selectedView(position: Int) {
             if(position==0) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    mediaPlayer.start()
+                    try {
+                        mediaPlayer.start()
+                    }catch (e: java.lang.Exception) {}
                 }, 100)
             }
             else mediaPlayer.start()

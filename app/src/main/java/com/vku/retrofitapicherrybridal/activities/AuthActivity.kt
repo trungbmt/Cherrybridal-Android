@@ -42,6 +42,9 @@ class AuthActivity : AppCompatActivity() {
                 authService.enqueue(object : Callback<JsonObject>{
                     override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                         pDialog.dismiss()
+                        pDialog = SweetAlertDialog(this@AuthActivity, SweetAlertDialog.ERROR_TYPE)
+                        pDialog.titleText = "Không thể kết nối đến máy chủ!"
+                        pDialog.show()
                     }
 
                     override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {

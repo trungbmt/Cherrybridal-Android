@@ -1,6 +1,10 @@
 package com.vku.retrofitapicherrybridal.model
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import androidx.core.content.ContextCompat
 import com.google.gson.annotations.SerializedName
+import com.vku.retrofitapicherrybridal.R
 
 class Order {
     @SerializedName("order_id")
@@ -37,8 +41,13 @@ class Order {
         return price
     }
     fun getStatus() : String {
-        if(status==0) return "Đang xử lí"
-        if(status==-1) return "Đã huỷ đơn"
-        return "Đã giao hàng"
+        if(status==0) return "Processing"
+        if(status==-1) return "Canceled"
+        return "Delivered"
+    }
+    fun getIconId() : Int {
+        if(status==0) return R.drawable.ic_shiping
+        if(status==-1) return R.drawable.ic_abort_order
+        return R.drawable.ic_success
     }
 }

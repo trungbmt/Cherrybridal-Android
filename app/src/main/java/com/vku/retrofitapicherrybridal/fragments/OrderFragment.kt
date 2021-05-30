@@ -24,7 +24,7 @@ class OrderFragment : Fragment() {
         val orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
         orderViewModel.getOrders()
         orderViewModel.mOrderLiveData.observe(viewLifecycleOwner, Observer {
-            var orderAdapter = OrderAdapter(it, requireContext())
+            var orderAdapter = OrderAdapter(it, requireContext(), orderViewModel)
             rootView.rv.adapter = orderAdapter
         })
 
