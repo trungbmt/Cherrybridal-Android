@@ -5,7 +5,10 @@ import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonObject
+import com.google.gson.JsonPrimitive
 import com.vku.retrofitapicherrybridal.AppConfig
+import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.client.ProductClient
 import com.vku.retrofitapicherrybridal.model.Product
 import com.vku.retrofitapicherrybridal.model.ProductAPI
@@ -24,6 +27,7 @@ class ProductViewModel : ViewModel() {
 
     private var mProductLiveData = MutableLiveData<Product>()
     private var mProduct = Product()
+    var productRate = MutableLiveData<Float>()
 
     fun getProductsLiveData() : MutableLiveData<ArrayList<Product>> {
         return this.mProductsLiveData
@@ -45,6 +49,28 @@ class ProductViewModel : ViewModel() {
                 if(response.isSuccessful && productResponse!=null) {
                     mProductLiveData.value = productResponse!!
                 }
+            }
+
+        })
+    }
+    fun ratingProduct(_options: HashMap<String, String>) {
+        var headers = HashMap<String, String>()
+        var token = MainApplication.userSharedPreferences().getString("token", null)
+        if(token!=null) {
+            headers.put("Authorization", "Bearer " + token)
+        }
+        val productService = productClient.ratingProduct(headers, _options)
+        productService.enqueue(object : Callback<JsonPrimitive>{
+            override fun onFailure(call: Call<JsonPrimitive>, t: Throwable) {
+                Log.d("Rating", "Failed ${t.message}")
+            }
+
+            override fun onResponse(call: Call<JsonPrimitive>, response: Response<JsonPrimitive>) {
+                var newRating = response.body()?.asFloat
+                if (newRating!=null && newRating>0) {
+                    productRate.value = newRating!!
+                }
+                Log.d("Rating", "Respon ${response.body()?.asFloat}")
             }
 
         })

@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="app_color">#ff084e</color>
 
+    <color name="textbackground">#e0e0e0</color>
+    <color name="starColor">#fcba03</color>
     <color name="selectedIconColor">#ff084e</color>
     <color name="defaultIconColor">#F6F6F6</color>
     <color name="countTextColor">#fff</color>

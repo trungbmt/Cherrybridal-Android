@@ -25,7 +25,9 @@ import com.google.gson.JsonObject
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.activities.DashboardActivity
 import com.vku.retrofitapicherrybridal.client.PostClient
+import com.vku.retrofitapicherrybridal.fragments.CommentFragment
 import com.vku.retrofitapicherrybridal.model.Post
 import com.vku.retrofitapicherrybridal.model.PostAPI
 import kotlinx.android.synthetic.main.single_post_row.view.*
@@ -43,18 +45,25 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
 
         var background = itemView.textureView
         var imgview = itemView.imageView
+        var imgAvatar = itemView.imgAvt
 
         var tvLikeCount = itemView.tvLikeCount
+        var tvCommentCount = itemView.tvCommentCount
         var poster = itemView.tvPoster
         var title = itemView.tvTitle
 
         var btnLike = itemView.btnLike
+        var btnComment = itemView.btnComment
         var btnPlay = itemView.btnPlay
         var btnShare = itemView.btnShare
         var url : String? = null
         var mediaPlayer : MediaPlayer = MediaPlayer()
 
         init {
+            btnComment.setOnClickListener {
+                val commentFragment = CommentFragment(posts.get(absoluteAdapterPosition).id)
+                commentFragment.show((context as DashboardActivity).supportFragmentManager, "CommentFragment")
+            }
             btnLike.setOnClickListener {
                 val post = posts.get(absoluteAdapterPosition)
                 if(post.liked) {
@@ -147,7 +156,13 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
         holder.poster.text = post.poster.username
         holder.title.text = post.description
         holder.tvLikeCount.text = post.self_like.toString()
-        Log.d("CHECK", "post ${post.id}, liked ${post.liked}")
+        holder.tvCommentCount.text = post.commentCount.toString()
+        if(!post.poster.provider.isBlank()) {
+            Glide.with(context)
+                .load(post.poster.avatar)
+                .into(holder.imgAvatar)
+        }
+
         if(post.liked) {
             holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_liked_64))
         } else {

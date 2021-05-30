@@ -1,12 +1,10 @@
 package com.vku.retrofitapicherrybridal.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.vku.retrofitapicherrybridal.R
-import com.vku.retrofitapicherrybridal.fragments.ProductShowFragment
 import com.vku.retrofitapicherrybridal.fragments.ShopProductFragment
-import kotlinx.android.synthetic.main.product_show.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,7 +25,6 @@ class MainActivity : AppCompatActivity() {
         shopProductFragment.arguments = bundle
         supportFragmentManager.beginTransaction().replace(R.id.frameLayout, shopProductFragment).commit()
     }
-
 
 
 }

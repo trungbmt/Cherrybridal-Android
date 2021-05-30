@@ -55,18 +55,20 @@ class ShopProductFragment : Fragment() {
         val gridLayoutManager = GridLayoutManager(this.context, 2)
         rootView.rv_product.layoutManager = gridLayoutManager
         rootView.nestedScrollView.setOnScrollChangeListener { v: NestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            if(!productViewModel.isLoading) {
-                rootView.progress_bar.visibility = View.GONE
-                val currentItems = gridLayoutManager.childCount
-                val totalItems = gridLayoutManager.itemCount
-                val scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition()
-                if (currentItems + scrollOutItems == totalItems) {
-                    productViewModel.loadMore(options)
-                }
-                Log.d("CHECKK", "Current $currentItems, Total $totalItems, scrollOut $scrollOutItems")
-            } else {
-                rootView.progress_bar.visibility = View.VISIBLE
+            if(scrollY>0) {
+                if(!productViewModel.isLoading) {
+                    rootView.progress_bar.visibility = View.GONE
+                    val currentItems = gridLayoutManager.childCount
+                    val totalItems = gridLayoutManager.itemCount
+                    val scrollOutItems = gridLayoutManager.findFirstVisibleItemPosition()
+                    if (currentItems + scrollOutItems == totalItems) {
+                        productViewModel.loadMore(options)
+                    }
+                    Log.d("CHECKK", "Current $currentItems, Total $totalItems, scrollOut $scrollOutItems")
+                } else {
+                    rootView.progress_bar.visibility = View.VISIBLE
 
+                }
             }
         }
         rootView.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{

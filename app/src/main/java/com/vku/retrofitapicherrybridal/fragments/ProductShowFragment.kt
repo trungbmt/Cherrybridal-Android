@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.bumptech.glide.Glide
 import com.google.gson.JsonObject
+import com.stepstone.apprating.AppRatingDialog
+import com.stepstone.apprating.listener.RatingDialogListener
 import com.vku.retrofitapicherrybridal.AppConfig
 import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
@@ -30,11 +32,16 @@ import kotlinx.android.synthetic.main.product_show.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
-class ProductShowFragment () : Fragment() {
+class ProductShowFragment () : Fragment(), RatingDialogListener {
     lateinit var rootView : View
     lateinit var details : ArrayList<ProductDetail>
+    lateinit var productViewModel: ProductViewModel
+    val REQUEST_RATING_CODE = 9
     var cartClient = AppConfig.retrofit.create(CartClient::class.java)
     var detail_id = 0
     var product = Product()
@@ -61,6 +68,11 @@ class ProductShowFragment () : Fragment() {
         }
         rootView.btnCartAdd.setOnClickListener {
             cartAdd()
+        }
+        rootView.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            if(fromUser) {
+                showRating(rating.toInt())
+            }
         }
 
         return rootView
@@ -97,7 +109,7 @@ class ProductShowFragment () : Fragment() {
         val bundle = this.arguments
         if (bundle != null) {
             val id = bundle.getInt("product_id", 1)
-            val productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
+            productViewModel = ViewModelProvider(this).get(ProductViewModel::class.java)
             productViewModel.getProduct(id)
             productViewModel.getProductLiveData().observe(this, Observer {
                 product = it
@@ -141,6 +153,57 @@ class ProductShowFragment () : Fragment() {
                 }
                 rgSize.check(rgSize.getChildAt(0).id)
             })
+
+            productViewModel.productRate.observe(viewLifecycleOwner, Observer {
+                ratingBar.rating = it
+            })
         }
+    }
+    private fun showRating(rate: Int) {
+        var ratingDialog = AppRatingDialog.Builder()
+            .setPositiveButtonText("Submit")
+            .setNeutralButtonText("Later")
+            .setNoteDescriptions(
+                Arrays.asList(
+                    "Very Bad",
+                    "Not good",
+                    "Quite ok",
+                    "Very Good",
+                    "Excellent !!!"
+                )
+            )
+            .setDefaultRating(rate)
+            .setTitle("Rate this product")
+            .setDescription("Please select some stars and give your feedback")
+            .setCommentInputEnabled(true)
+            .setDefaultComment("This product is pretty cool !")
+            .setStarColor(R.color.starColor)
+            .setNoteDescriptionTextColor(R.color.black)
+            .setTitleTextColor(R.color.black)
+            .setDescriptionTextColor(R.color.black)
+            .setHint("Please write your comment here ...")
+            .setHintTextColor(R.color.black)
+            .setCommentTextColor(R.color.black)
+            .setCommentBackgroundColor(R.color.textbackground)
+            .setCancelable(false)
+            .create(this@ProductShowFragment.activity!!)
+            .setTargetFragment(this, REQUEST_RATING_CODE) // only if listener is implemented by fragment
+            .show()
+    }
+
+    override fun onNegativeButtonClicked() {
+
+    }
+
+    override fun onNeutralButtonClicked() {
+        rootView.ratingBar.rating = product.rating
+    }
+
+    override fun onPositiveButtonClicked(rate: Int, comment: String) {
+        var options = HashMap<String, String>()
+        options.put("product_id", "${product.id}")
+        options.put("value", "$rate")
+        options.put("content", comment)
+        productViewModel.ratingProduct(options)
     }
 }

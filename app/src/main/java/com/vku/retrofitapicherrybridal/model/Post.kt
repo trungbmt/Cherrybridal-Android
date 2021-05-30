@@ -14,6 +14,7 @@ class Post() {
     var poster : User = User()
     var self_like = 0
     var liked = false
+    var commentCount = 0
 
 
     fun getMediaUrl() : String {
