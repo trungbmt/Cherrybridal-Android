@@ -6,47 +6,42 @@
         <item
             android:id="@+id/create_post"
             android:checkable="false"
-            android:icon="@drawable/loading"
-            android:title="Create Post" />
+            android:icon="@drawable/ic_newpost"
+            android:title="New Post" />
 
         <item
             android:id="@+id/order_list"
-            android:icon="@drawable/loading"
+            android:checkable="false"
+            android:icon="@drawable/ic_order"
             android:title="Your Order" />
 
-        <item
-            android:id="@+id/item_shop"
-            android:icon="@drawable/loading"
-            android:title="Shop" />
-
-        <item
-            android:id="@+id/item_cart"
-            android:icon="@drawable/loading"
-            android:title="Cart" />
     </group>
 
 
 
-    <item android:title="Profile">
+    <item android:title="Commnunicate">
 
         <menu>
 
             <group android:checkableBehavior="single">
 
                 <item
-                    android:id="@+id/login"
-                    android:icon="@drawable/loading"
-                    android:title="Login" />
+                    android:id="@+id/fbLink"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_facebook"
+                    android:title="Facebook" />
 
                 <item
-                    android:id="@+id/profile"
-                    android:icon="@drawable/loading"
-                    android:title="Profile" />
-
+                    android:id="@+id/insLink"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_ins"
+                    android:title="Instagram" />
                 <item
-                    android:id="@+id/logout"
-                    android:icon="@drawable/loading"
-                    android:title="Logout" />
+                    android:id="@+id/spLink"
+                    android:checkable="false"
+                    android:icon="@drawable/ic_shoppe"
+                    android:title="Shoppe" />
+
 
             </group>
         </menu>
@@ -55,19 +50,15 @@
 
 
 
-    <item android:title="Commnunicate">
+    <item android:title="Account">
 
         <menu>
 
             <item
-                android:id="@+id/share"
-                android:icon="@drawable/loading"
-                android:title="Share" />
-
-            <item
-                android:id="@+id/rate"
-                android:icon="@drawable/loading"
-                android:title="Rate Us" />
+                android:id="@+id/logout"
+                android:checkable="false"
+                android:icon="@drawable/ic_logout"
+                android:title="Logout" />
 
         </menu>
 

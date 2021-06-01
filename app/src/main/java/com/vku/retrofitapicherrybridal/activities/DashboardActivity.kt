@@ -136,6 +136,7 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         setContentView(R.layout.activity_dashboard)
         mDrawerLayout = dashboard_drawer
         nav_menu.setNavigationItemSelectedListener(this)
+        nav_menu.itemIconTintList = null
         nav_menu.getHeaderView(0).btnAvtChange.setOnClickListener {
             imagePick()
         }
