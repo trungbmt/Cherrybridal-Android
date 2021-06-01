@@ -161,6 +161,10 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
             Glide.with(context)
                 .load(post.poster.avatar)
                 .into(holder.imgAvatar)
+        } else {
+            Glide.with(context)
+                    .load(AppConfig.IMAGE_URL+post.poster.avatar)
+                    .into(holder.imgAvatar)
         }
 
         if(post.liked) {

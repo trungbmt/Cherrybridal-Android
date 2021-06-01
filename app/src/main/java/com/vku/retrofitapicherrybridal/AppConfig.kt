@@ -10,7 +10,7 @@ import com.google.gson.Gson
 
 
 object AppConfig {
-    const val BASE_URL = "http://192.168.1.14/cherrybridal/"
+    const val BASE_URL = "http://192.168.1.15/cherrybridal/"
     const val IMAGE_URL = BASE_URL+"storage/app/"
     private val builder = Retrofit.Builder()
             .baseUrl(BASE_URL)

@@ -200,10 +200,11 @@ class ProductShowFragment () : Fragment(), RatingDialogListener {
     }
 
     override fun onPositiveButtonClicked(rate: Int, comment: String) {
+        rootView.ratingBar.rating = product.rating
         var options = HashMap<String, String>()
         options.put("product_id", "${product.id}")
         options.put("value", "$rate")
         options.put("content", comment)
-        productViewModel.ratingProduct(options)
+        productViewModel.ratingProduct(options, requireContext())
     }
 }

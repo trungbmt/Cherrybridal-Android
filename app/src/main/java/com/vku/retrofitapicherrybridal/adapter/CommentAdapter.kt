@@ -39,6 +39,10 @@ class CommentAdapter(var comments : ArrayList<PostComment>, var context : Contex
             Glide.with(context)
                 .load(comment.user.avatar)
                 .into(holder.imgAvatar)
+        } else {
+            Glide.with(context)
+                    .load(AppConfig.IMAGE_URL+comment.user.avatar)
+                    .into(holder.imgAvatar)
         }
     }
 }

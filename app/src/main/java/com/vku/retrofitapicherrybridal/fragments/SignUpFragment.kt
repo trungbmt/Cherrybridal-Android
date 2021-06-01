@@ -129,6 +129,8 @@ class SignUpFragment : Fragment() {
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
+                    editor.putString("avatar", user.avatar)
+                    editor.putString("provider", user.provider)
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
                     pDialog = SweetAlertDialog(this@SignUpFragment.context, SweetAlertDialog.SUCCESS_TYPE);
