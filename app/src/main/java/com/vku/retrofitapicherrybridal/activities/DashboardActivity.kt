@@ -2,6 +2,7 @@ package com.vku.retrofitapicherrybridal.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -134,12 +135,15 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_dashboard)
+
         mDrawerLayout = dashboard_drawer
         nav_menu.setNavigationItemSelectedListener(this)
         nav_menu.itemIconTintList = null
         nav_menu.getHeaderView(0).btnAvtChange.setOnClickListener {
             imagePick()
         }
+
+
         loadUserData()
 
         blogFragment = BlogFragment.newInstance()

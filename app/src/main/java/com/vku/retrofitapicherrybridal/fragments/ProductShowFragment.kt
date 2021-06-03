@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import androidx.core.content.ContextCompat
@@ -41,6 +42,7 @@ class ProductShowFragment () : Fragment(), RatingDialogListener {
     lateinit var rootView : View
     lateinit var details : ArrayList<ProductDetail>
     lateinit var productViewModel: ProductViewModel
+
     val REQUEST_RATING_CODE = 9
     var cartClient = AppConfig.retrofit.create(CartClient::class.java)
     var detail_id = 0
@@ -67,7 +69,14 @@ class ProductShowFragment () : Fragment(), RatingDialogListener {
             }
         }
         rootView.btnCartAdd.setOnClickListener {
-            cartAdd()
+            var amount = Integer.parseInt(tvAmount.text.toString())
+            if(amount>0) {
+                cartAdd()
+            } else {
+                var alert = SweetAlertDialog(this.context, SweetAlertDialog.ERROR_TYPE)
+                alert.titleText = "Sản phẩm đã hết hàng!"
+                alert.show()
+            }
         }
         rootView.ratingBar.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
             if(fromUser) {

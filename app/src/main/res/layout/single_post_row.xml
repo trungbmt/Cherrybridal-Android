@@ -85,7 +85,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_like_64" />
+                android:background="@drawable/unheart" />
             <TextView
                 android:id="@+id/tvLikeCount"
                 android:text="0"

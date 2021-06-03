@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_comment.view.*
 class CommentFragment(var postId : Int) : BottomSheetDialogFragment() {
     lateinit var rootView : View
     lateinit var commentViewModel : CommentViewModel
+    var mCommentCountLiveData = MutableLiveData<Int>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,6 +34,7 @@ class CommentFragment(var postId : Int) : BottomSheetDialogFragment() {
             rootView.rv_comment.adapter = commentAdapter
             rootView.progress_bar.visibility = View.GONE
             rootView.commentCount.text = "${it.size} comments"
+            mCommentCountLiveData.value = it.size
         })
         commentViewModel.mNewComment.observe(viewLifecycleOwner, Observer {
             commentAdapter.comments.add(0, it)

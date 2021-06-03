@@ -19,14 +19,20 @@ class CommentViewModel : ViewModel() {
     var mNewComment = MutableLiveData<PostComment>()
 
     fun getComments(id : Int) {
-        val commentService = commentClient.getComments(id)
+
+        var headers = HashMap<String, String>()
+        var token = MainApplication.userSharedPreferences().getString("token", null)
+        if(token!=null) {
+            headers.put("Authorization", "Bearer " + token)
+        }
+        val commentService = commentClient.getComments(headers, id)
         commentService.enqueue(object : Callback<PostCommentAPI> {
             override fun onFailure(call: Call<PostCommentAPI>, t: Throwable) {
                 Log.d("COMMENT", "Fail ${t.message}")
             }
 
             override fun onResponse(call: Call<PostCommentAPI>, response: Response<PostCommentAPI>) {
-                Log.d("COMMENT", "respon ${response.body()}")
+                Log.d("COMMENT", "respon ${response.body().toString()}")
                 if(response.isSuccessful) {
                     var comments = response.body()?.comments
                     if(comments!=null && comments?.size>0 ) {
