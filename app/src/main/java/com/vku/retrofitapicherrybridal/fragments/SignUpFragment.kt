@@ -16,6 +16,7 @@ import com.vku.retrofitapicherrybridal.client.AuthClient
 import com.vku.retrofitapicherrybridal.model.User
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.vku.retrofitapicherrybridal.activities.DashboardActivity
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 import kotlinx.android.synthetic.main.fragment_sign_up.view.layoutPassword
@@ -129,6 +130,8 @@ class SignUpFragment : Fragment() {
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
+                    editor.putString("avatar", user.avatar)
+                    editor.putString("provider", user.provider)
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
                     pDialog = SweetAlertDialog(this@SignUpFragment.context, SweetAlertDialog.SUCCESS_TYPE);
@@ -136,7 +139,7 @@ class SignUpFragment : Fragment() {
                         .setContentText("Tài khoản của bạn đã được khởi tạo")
                         .show();
                     pDialog.setConfirmClickListener {
-                        this@SignUpFragment.startActivity(Intent(this@SignUpFragment.context, MainActivity::class.java))
+                        this@SignUpFragment.startActivity(Intent(this@SignUpFragment.context, DashboardActivity::class.java))
                         this@SignUpFragment.activity?.finish()
                     }
 

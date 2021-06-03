@@ -1,10 +1,12 @@
 package com.vku.retrofitapicherrybridal.viewmodel
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.JsonObject
 import com.google.gson.JsonPrimitive
 import com.vku.retrofitapicherrybridal.AppConfig
@@ -53,7 +55,7 @@ class ProductViewModel : ViewModel() {
 
         })
     }
-    fun ratingProduct(_options: HashMap<String, String>) {
+    fun ratingProduct(_options: HashMap<String, String>, context : Context) {
         var headers = HashMap<String, String>()
         var token = MainApplication.userSharedPreferences().getString("token", null)
         if(token!=null) {
@@ -69,6 +71,10 @@ class ProductViewModel : ViewModel() {
                 var newRating = response.body()?.asFloat
                 if (newRating!=null && newRating>0) {
                     productRate.value = newRating!!
+                } else {
+                    val pDialog = SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+                    pDialog.titleText = "Bạn chưa mua sản phẩm này!"
+                    pDialog.show()
                 }
                 Log.d("Rating", "Respon ${response.body()?.asFloat}")
             }

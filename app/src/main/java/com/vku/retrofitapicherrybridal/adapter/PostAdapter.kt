@@ -2,6 +2,8 @@ package com.vku.retrofitapicherrybridal.adapter
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.SurfaceTexture
 import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
@@ -10,7 +12,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
+import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -39,6 +43,7 @@ import retrofit2.Response
 class PostAdapter(var posts : ArrayList<Post>, var context : Context) : RecyclerView.Adapter<PostAdapter.ViewHolder>() {
     private val postClient: PostClient = AppConfig.retrofit.create(PostClient::class.java)
     var token = MainApplication.userSharedPreferences().getString("token", null)
+    val likeAnimation = AnimationUtils.loadAnimation(context, R.anim.scale_up)
 
     private val proxy : HttpProxyCacheServer = HttpProxyCacheServer(this.context)
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -61,17 +66,21 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
 
         init {
             btnComment.setOnClickListener {
-                val commentFragment = CommentFragment(posts.get(absoluteAdapterPosition).id)
+                var commentFragment = CommentFragment(posts.get(absoluteAdapterPosition).id)
                 commentFragment.show((context as DashboardActivity).supportFragmentManager, "CommentFragment")
+                commentFragment.mCommentCountLiveData.observeForever {
+                    tvCommentCount.text = it.toString()
+                }
             }
             btnLike.setOnClickListener {
                 val post = posts.get(absoluteAdapterPosition)
                 if(post.liked) {
                     post.liked = false
-                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_like_64))
+                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.unheart))
                 } else {
                     post.liked = true
-                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_liked_64))
+                    btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.heart))
+                    btnLike.startAnimation(likeAnimation)
                 }
 
                 var options = HashMap<String, String>()
@@ -161,12 +170,16 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
             Glide.with(context)
                 .load(post.poster.avatar)
                 .into(holder.imgAvatar)
+        } else {
+            Glide.with(context)
+                    .load(AppConfig.IMAGE_URL+post.poster.avatar)
+                    .into(holder.imgAvatar)
         }
 
         if(post.liked) {
-            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_liked_64))
+            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.heart))
         } else {
-            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_like_64))
+            holder.btnLike.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.unheart))
         }
 
         holder.btnShare.setOnClickListener {
@@ -221,7 +234,6 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
                         }
                     })
         }
-        Log.d("PostInfo", "Post: $position proxy $proxyUrl, post URL ${post.getMediaUrl()}")
     }
 
 }

@@ -9,9 +9,10 @@
 
     <TextureView
         android:id="@+id/textureView"
-        android:layout_gravity="top"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="top" />
+
     <ImageView
         android:visibility="gone"
         android:id="@+id/imageView"
@@ -84,7 +85,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/ic_like_64" />
+                android:background="@drawable/unheart" />
             <TextView
                 android:id="@+id/tvLikeCount"
                 android:text="0"

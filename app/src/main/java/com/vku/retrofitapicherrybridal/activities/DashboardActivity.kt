@@ -1,6 +1,10 @@
 package com.vku.retrofitapicherrybridal.activities
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -12,15 +16,28 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.bumptech.glide.Glide
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.android.material.navigation.NavigationView
+import com.google.gson.JsonObject
 import com.vku.retrofitapicherrybridal.AppConfig
+import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
+import com.vku.retrofitapicherrybridal.Tools
+import com.vku.retrofitapicherrybridal.client.AccountClient
 import com.vku.retrofitapicherrybridal.client.CategoryClient
 import com.vku.retrofitapicherrybridal.fragments.*
 import com.vku.retrofitapicherrybridal.model.CategoryAPI
 import kotlinx.android.synthetic.main.activity_dashboard.*
+import kotlinx.android.synthetic.main.header_menu.view.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -31,13 +48,104 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
     var currentFragment : Fragment? = null
     var previousId = 0
     var backNav = true
+    val IMAGE_PICKER_CODE = 0
 
+    fun loadUserData() {
+        val sPref = MainApplication.userSharedPreferences()
+        val uAvatar = sPref.getString("avatar", null)
+        if(uAvatar!=null) {
+            var provider = sPref.getString("provider", null)
+            if(provider!=null && !provider.isBlank()) {
+                Glide.with(this)
+                        .load(uAvatar)
+                        .into(nav_menu.getHeaderView(0).imgAvatar)
+                nav_menu.getHeaderView(0).layoutChangeAvt.visibility = View.GONE
+            } else {
+                Glide.with(this)
+                        .load(AppConfig.IMAGE_URL+uAvatar)
+                        .into(nav_menu.getHeaderView(0).imgAvatar)
+            }
+        }
+        val uName = sPref.getString("username", null)
+        if(uName!=null) {
+            nav_menu.getHeaderView(0).tvUsername.text = uName
+        }
+    }
+    fun imagePick() {
+
+        val pickIntent = Intent(
+                Intent.ACTION_PICK
+        )
+        pickIntent.setType("image/*");
+        startActivityForResult(pickIntent, IMAGE_PICKER_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICKER_CODE) {
+            val imageUri = data?.data
+            if(imageUri!=null) {
+                val realPath = Tools.getRealPathFromURI(imageUri, this)
+                val file = File(realPath)
+                Log.d("AVTUPLOAD", "File: ${file.absolutePath}")
+                var requestFile = RequestBody.create(MediaType.parse("image/*"), file)
+                var body: MultipartBody.Part =
+                        MultipartBody.Part.createFormData("avatar", file.name, requestFile)
+
+                var headers = HashMap<String, String>()
+                var token = MainApplication.userSharedPreferences().getString("token", null)
+                headers.put("Authorization", "Bearer " + token)
+                val accountService = AppConfig.retrofit.create(AccountClient::class.java).changeAvatar(headers, body)
+
+                var pDialog = SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE)
+                pDialog.setCancelable(false)
+                pDialog.show()
+
+                accountService.enqueue(object : Callback<JsonObject>{
+                    override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                        pDialog.dismiss()
+                        pDialog = SweetAlertDialog(this@DashboardActivity, SweetAlertDialog.ERROR_TYPE)
+                        pDialog.titleText = "Thay ảnh đại diện thất bại!"
+                        pDialog.show()
+                        Log.d("AVTUPLOAD", "Failed ${t.message}")
+                    }
+
+                    override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                        pDialog.dismiss()
+                        pDialog = SweetAlertDialog(this@DashboardActivity, SweetAlertDialog.SUCCESS_TYPE)
+                        pDialog.titleText = response.body()?.get("message")?.asString
+                        pDialog.show()
+
+                        var editor = MainApplication.userSharedPreferences().edit()
+                        val avatar = response.body()?.get("avatar")?.asString
+                        Glide.with(this@DashboardActivity)
+                                .load(AppConfig.IMAGE_URL+avatar)
+                                .into(nav_menu.getHeaderView(0).imgAvatar)
+                        editor.putString("avatar", avatar)
+                        editor.apply()
+                        Log.d("AVTUPLOAD", "Response ${response.body().toString()}")
+                    }
+
+                })
+
+            }
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
         setContentView(R.layout.activity_dashboard)
+
         mDrawerLayout = dashboard_drawer
         nav_menu.setNavigationItemSelectedListener(this)
+        nav_menu.itemIconTintList = null
+        nav_menu.getHeaderView(0).btnAvtChange.setOnClickListener {
+            imagePick()
+        }
+
+
+        loadUserData()
+
         blogFragment = BlogFragment.newInstance()
         addFragment(blogFragment!!)
         currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)

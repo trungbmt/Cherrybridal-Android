@@ -145,6 +145,8 @@ class SignInFragment : Fragment() {
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
+                    editor.putString("avatar", user.avatar)
+                    editor.putString("provider", user.provider)
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
 
@@ -194,6 +196,8 @@ class SignInFragment : Fragment() {
                     editor.putString("token", token)
                     editor.putString("username", user.username)
                     editor.putString("email", user.email)
+                    editor.putString("avatar", user.avatar)
+                    editor.putString("provider", user.provider)
                     editor.putBoolean("isLoggedIn", true)
                     editor.apply()
 
