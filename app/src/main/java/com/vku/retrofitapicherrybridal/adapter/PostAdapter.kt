@@ -189,6 +189,7 @@ class PostAdapter(var posts : ArrayList<Post>, var context : Context) : Recycler
                 .build();
             ShareDialog.show(context as Activity, shareContent);
         }
+
         val proxyUrl = proxy.getProxyUrl(post.getMediaUrl())
         if(!post.isImageFile()) {
             holder.background.visibility = View.VISIBLE

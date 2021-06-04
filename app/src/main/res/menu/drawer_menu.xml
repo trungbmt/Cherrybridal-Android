@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
 
@@ -7,19 +8,19 @@
             android:id="@+id/create_post"
             android:checkable="false"
             android:icon="@drawable/ic_newpost"
-            android:title="New Post" />
+            android:title="@string/new_post" />
 
         <item
             android:id="@+id/order_list"
             android:checkable="false"
             android:icon="@drawable/ic_order"
-            android:title="Your Order" />
+            android:title="@string/your_order" />
 
     </group>
 
 
 
-    <item android:title="Commnunicate">
+    <item android:title="@string/communicate">
 
         <menu>
 
@@ -48,9 +49,24 @@
 
     </item>
 
+    <item android:title="@string/language">
+        <menu>
+
+            <item android:id="@+id/languageVn"
+                android:checkable="false"
+                android:icon="@drawable/vn"
+                android:title="Tiếng việt"
+                />
+            <item android:id="@+id/languageEn"
+                android:checkable="false"
+                android:icon="@drawable/en"
+                android:title="English"
+                />
+        </menu>
+    </item>
 
 
-    <item android:title="Account">
+    <item android:title="@string/account">
 
         <menu>
 
@@ -58,8 +74,7 @@
                 android:id="@+id/logout"
                 android:checkable="false"
                 android:icon="@drawable/ic_logout"
-                android:title="Logout" />
-
+                android:title="@string/log_out" />
         </menu>
 
     </item>
