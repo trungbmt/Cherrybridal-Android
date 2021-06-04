@@ -26,7 +26,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up to start your  new Journey"
+        android:text="@string/sign_up_quote"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -41,7 +41,7 @@
             android:id="@+id/layoutUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="@string/username"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -72,7 +72,7 @@
             android:id="@+id/layoutPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -88,7 +88,7 @@
             android:id="@+id/layoutConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password Confirm"
+            android:hint="@string/password_confirm"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -105,7 +105,7 @@
         android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SIGN UP"
+        android:text="@string/sign_up"
         android:backgroundTint="#000"
         android:textColor="#fff"/>
 
@@ -113,7 +113,7 @@
         android:id="@+id/txtSignIn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Already have an account? Login"
+        android:text="@string/already_account"
         android:backgroundTint="#fff"
         android:textColor="#000"/>
 

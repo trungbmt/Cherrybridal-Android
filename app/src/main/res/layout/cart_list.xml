@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Amount"
+                android:text="@string/total_amount"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:backgroundTint="@color/countBackgroundColor"
-            android:text="Place Order"
+            android:text="@string/place_order"
             android:textColor="#000000"
             android:textSize="16sp"
             android:textStyle="bold" />

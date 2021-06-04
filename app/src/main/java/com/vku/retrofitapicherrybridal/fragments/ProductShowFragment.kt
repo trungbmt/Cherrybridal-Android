@@ -158,9 +158,14 @@ class ProductShowFragment () : Fragment(), RatingDialogListener {
                     var amount = Integer.parseInt(tvAmount.text.toString())
                     if(amount>detail.amount) {
                         tvAmount.text = "${detail.amount}"
+                    } else if(amount==0) {
+                        tvAmount.text = "1"
                     }
                 }
                 rgSize.check(rgSize.getChildAt(0).id)
+                if(it.productDetails.size==1&&it.productDetails.get(0).amount==0) {
+                    tvAmount.text = "0"
+                }
             })
 
             productViewModel.productRate.observe(viewLifecycleOwner, Observer {

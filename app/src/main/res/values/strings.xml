@@ -11,4 +11,47 @@
     values-round/strings.xml for round devices.
     -->
     <string name="hello_world">Hello Square World!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="new_user">NEW USER? SIGN UP</string>
+    <string name="sign_in_to_continue">Sign In to continue</string>
+    <string name="password_confirm">Password Confirm</string>
+    <string name="sign_up">SIGN UP</string>
+    <string name="already_account">ALREADY HAVE AN ACCOUNT? LOGIN</string>
+    <string name="comment">comments</string>
+    <string name="categories">Categories</string>
+    <string name="place_order">PLACE ORDER</string>
+    <string name="remove_item">Remove Item</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="voucher_applied">Voucher applied</string>
+    <string name="sign_up_quote">Sign Up to start your new Journey</string>
+    <string name="new_post">New Post</string>
+    <string name="your_order">Your Order</string>
+    <string name="communicate">Communicate</string>
+    <string name="account">Account</string>
+    <string name="log_out">Logout</string>
+    <string name="order_details">Order Details</string>
+    <string name="shipment_detail">Shipment Details</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone">Phone</string>
+    <string name="city">City</string>
+    <string name="province">Province</string>
+    <string name="address">Address</string>
+    <string name="price_detail">Price Details</string>
+    <string name="price">Price</string>
+    <string name="delivery">Delivery</string>
+    <string name="abort_order">ABORT  ORDER</string>
+    <string name="total_price">Total Price</string>
+    <string name="leave_comment">Leave a comment</string>
+    <string name="description">Description</string>
+    <string name="select_media">Select Media</string>
+    <string name="post">Post</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="language">Language</string>
+
+
+    <!--    language-->
+
 </resources>

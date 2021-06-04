@@ -16,7 +16,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Description"
+            android:hint="@string/description"
             >
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/inputDescription"
@@ -50,14 +50,14 @@
 
         <Button
             android:id="@+id/btnSelectMedia"
-            android:text="Select Media"
+            android:text="@string/select_media"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
         <Button
             android:id="@+id/btnPost"
-            android:text="POST"
+            android:text="@string/post"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

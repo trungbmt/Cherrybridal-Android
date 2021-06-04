@@ -2,15 +2,11 @@ package com.vku.retrofitapicherrybridal.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
+import android.content.res.Configuration
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -26,9 +22,7 @@ import com.vku.retrofitapicherrybridal.MainApplication
 import com.vku.retrofitapicherrybridal.R
 import com.vku.retrofitapicherrybridal.Tools
 import com.vku.retrofitapicherrybridal.client.AccountClient
-import com.vku.retrofitapicherrybridal.client.CategoryClient
 import com.vku.retrofitapicherrybridal.fragments.*
-import com.vku.retrofitapicherrybridal.model.CategoryAPI
 import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.header_menu.view.*
 import okhttp3.MediaType
@@ -38,6 +32,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
+import java.util.*
+import kotlin.collections.HashMap
 
 class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -242,6 +238,34 @@ class DashboardActivity : AppCompatActivity(), NavigationView.OnNavigationItemSe
                 AuthActivity.logout()
                 AuthActivity.logout_fb()
                 AuthActivity.logout_gg(this)
+            }
+            R.id.languageVn -> {
+                blogFragment?.pauseMusic()
+                val languageToLoad = "vi" // your language
+
+                val locale = Locale(languageToLoad)
+                Locale.setDefault(locale)
+                val config = Configuration()
+                config.locale = locale
+                baseContext.resources.updateConfiguration(config,
+                        baseContext.resources.displayMetrics)
+                val intent = intent
+                finish()
+                startActivity(intent)
+            }
+            R.id.languageEn -> {
+                blogFragment?.pauseMusic()
+                val languageToLoad = "en"
+
+                val locale = Locale(languageToLoad)
+                Locale.setDefault(locale)
+                val config = Configuration()
+                config.locale = locale
+                baseContext.resources.updateConfiguration(config,
+                        baseContext.resources.displayMetrics)
+                val intent = intent
+                finish()
+                startActivity(intent)
             }
             else -> {
                 backNav = true

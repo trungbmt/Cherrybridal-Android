@@ -132,7 +132,7 @@
                     android:drawableRight="@drawable/ic_arrow_forward_black_24dp"
                     android:fontFamily="@font/leckerli_one"
                     android:padding="16dp"
-                    android:text="Add to Cart"
+                    android:text="@string/add_to_cart"
                     android:textAllCaps="false"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
