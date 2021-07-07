@@ -45,7 +45,6 @@ class ShopFragment : Fragment() {
         }
 
         rootView.rv_category.setHasFixedSize(true)
-//        rootView.rv_category.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         rootView.rv_category.layoutManager = GridLayoutManager(this.context, 2, GridLayoutManager.HORIZONTAL, false)
         return rootView
     }
